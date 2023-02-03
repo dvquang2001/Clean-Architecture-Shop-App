@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_between_desc_and_title">4dp</dimen>
+    <dimen name="margin_between_elements">8dp</dimen>
+    <dimen name="small_margin">16dp</dimen>
+    <dimen name="regular_margin">24dp</dimen>
+    <dimen name="big_margin3">32dp</dimen>
+    <dimen name="big_margin2">48dp</dimen>
+    <dimen name="big_margin1">64dp</dimen>
+</resources>

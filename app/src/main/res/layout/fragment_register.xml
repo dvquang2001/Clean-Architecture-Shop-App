@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivLogin"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="@dimen/big_margin1"
+                android:src="@drawable/ic_app_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLoginTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/regular_margin"
+                android:text="@string/app_title"
+                android:textAllCaps="true"
+                android:textColor="@color/color_app_icon"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivLogin" />
+
+            <TextView
+                android:id="@+id/tvLoginDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_margin1"
+                android:layout_marginTop="@dimen/regular_margin"
+                android:layout_marginEnd="@dimen/big_margin1"
+                android:gravity="center"
+                android:text="@string/register_description"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLoginTitle" />
+
+            <include
+                android:id="@+id/inputEmail"
+                layout="@layout/layout_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/regular_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/regular_margin"
+                app:inputHint="@{@string/email_hint}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLoginDesc"
+                app:title="@{@string/email}" />
+
+            <include
+                android:id="@+id/inputPassword"
+                layout="@layout/layout_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/regular_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/regular_margin"
+                app:inputHint="@{@string/password_hint}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputEmail"
+                app:title="@{@string/password}" />
+
+            <ImageView
+                android:id="@+id/ivShowPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:src="@drawable/ic_show_password"
+                app:layout_constraintBottom_toBottomOf="@id/inputPassword"
+                app:layout_constraintEnd_toEndOf="@id/inputPassword"
+                app:layout_constraintTop_toTopOf="@id/inputPassword"
+                app:layout_constraintVertical_bias=".7" />
+
+            <include
+                android:id="@+id/inputConfirmedPassword"
+                layout="@layout/layout_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/regular_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/regular_margin"
+                app:inputHint="@{@string/password_hint}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputPassword"
+                app:title="@{@string/password}" />
+
+            <ImageView
+                android:id="@+id/ivShowConfirmedPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:src="@drawable/ic_show_password"
+                app:layout_constraintBottom_toBottomOf="@id/inputConfirmedPassword"
+                app:layout_constraintEnd_toEndOf="@id/inputConfirmedPassword"
+                app:layout_constraintTop_toTopOf="@id/inputConfirmedPassword"
+                app:layout_constraintVertical_bias=".7" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="@dimen/regular_margin"
+                android:layout_marginTop="@dimen/regular_margin"
+                android:layout_marginEnd="@dimen/regular_margin"
+                android:background="@drawable/bg_button"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/inputConfirmedPassword" />
+
+            <TextView
+                android:id="@+id/tvNavigateToLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_margin3"
+                android:layout_marginBottom="@dimen/regular_margin"
+                android:text="@string/navigate_to_login"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnRegister" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+</layout>

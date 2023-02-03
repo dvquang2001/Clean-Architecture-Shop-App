@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AppShopping</string>
+
+    <string name="app_title">Shop Shop</string>
+    <string name="description_login">Login now to get new products</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="login">Login</string>
+    <string name="navigate_to_register">Don\'t have an account? Register</string>
+    <string name="register_description">Register to start your journey!</string>
+    <string name="navigate_to_login">Have an account? Login</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirmed password</string>
+    <string name="email_hint">example@gmail.com</string>
+    <string name="password_hint">**********</string>
+    <string name="full_name_hint">Shop Shop</string>
+    <string name="register">Register</string>
+
+</resources>
