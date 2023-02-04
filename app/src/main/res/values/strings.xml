@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">AppShopping</string>
 
+    // Login Screen, Register Screen
     <string name="app_title">Shop Shop</string>
     <string name="description_login">Login now to get new products</string>
     <string name="forgot_password">Forgot password</string>
@@ -16,5 +17,16 @@
     <string name="password_hint">**********</string>
     <string name="full_name_hint">Shop Shop</string>
     <string name="register">Register</string>
+    
+    // Forgot Password Screen
+    <string name="description_forgot_password">Enter your registered email below to receive password reset instruction.</string>
+    <string name="send">Send</string>z
+    <string name="forgot_password_navigate_to_login">Back to login</string>
+
+    // Check Email Screen
+    <string name="title_check_email">Check your email</string>
+    <string name="description_check_email">We have sent password recovery instruction to your email.</string>
+    <string name="confirm_check">Back</string>
+
 
 </resources>

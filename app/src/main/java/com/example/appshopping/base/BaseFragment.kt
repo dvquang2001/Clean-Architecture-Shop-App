@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<BINDING: ViewDataBinding,VM: ViewModel>(
-    val layoutId:Int
+    private val layoutId:Int
 ): Fragment(), View.OnClickListener{
 
     protected lateinit var binding: BINDING

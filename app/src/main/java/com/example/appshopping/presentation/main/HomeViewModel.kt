@@ -4,8 +4,10 @@ import com.example.appshopping.base.BaseViewEffect
 import com.example.appshopping.base.BaseViewEvent
 import com.example.appshopping.base.BaseViewModel
 import com.example.appshopping.base.BaseViewState
+import com.example.appshopping.domain.usecase.getUserData.GetUserDataUseCase
+import javax.inject.Inject
 
-class HomeViewModel :
+class HomeViewModel @Inject constructor(private val getUserDataUseCase: GetUserDataUseCase) :
     BaseViewModel<HomeViewModel.ViewState, HomeViewModel.ViewEvent, HomeViewModel.ViewEffect>(
         ViewState()
     ) {

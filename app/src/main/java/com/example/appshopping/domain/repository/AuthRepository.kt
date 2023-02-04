@@ -5,6 +5,7 @@ import com.example.appshopping.domain.model.RegisterModel
 import com.example.appshopping.domain.model.ResultModel
 import com.example.appshopping.domain.usecase.login.LoginParam
 import com.example.appshopping.domain.usecase.register.RegisterParam
+import com.example.appshopping.domain.usecase.reset_password.ResetPasswordParam
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
@@ -13,5 +14,9 @@ interface AuthRepository {
 
     fun register(param: RegisterParam): Flow<ResultModel<RegisterModel>>
 
-    fun resetPassword(email: String)
+    fun isLogin(): Boolean
+
+    fun getCurrentUser(): Flow<ResultModel<LoginModel>>
+
+    suspend fun resetPassword(param: ResetPasswordParam)
 }

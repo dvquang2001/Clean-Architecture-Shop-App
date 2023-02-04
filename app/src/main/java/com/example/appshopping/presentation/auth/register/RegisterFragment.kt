@@ -16,6 +16,7 @@ import com.example.appshopping.presentation.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class RegisterFragment :
     BaseFragment<FragmentRegisterBinding, RegisterViewModel>(R.layout.fragment_register) {
@@ -38,14 +39,18 @@ class RegisterFragment :
                 viewModel.effect.collect { uiEffect ->
                     when (uiEffect) {
                         is RegisterViewModel.ViewEffect.RegisterSuccess -> {
+                            binding.progressBar.visibility = View.GONE
                             val intent = Intent(
                                 requireActivity(), MainActivity::class.java
                             )
                             startActivity(intent)
                         }
                         is RegisterViewModel.ViewEffect.Error -> {
+                            binding.progressBar.visibility = View.GONE
                             Toast.makeText(requireContext(), uiEffect.message, Toast.LENGTH_LONG)
                                 .show()
+                        }
+                        is RegisterViewModel.ViewEffect.Loading -> {
                         }
                     }
                 }
@@ -58,6 +63,7 @@ class RegisterFragment :
             btnRegister.setOnClickListener(this@RegisterFragment)
             binding.ivShowPassword.setOnClickListener(this@RegisterFragment)
             binding.ivShowConfirmedPassword.setOnClickListener(this@RegisterFragment)
+            binding.tvNavigateToLoginScreen.setOnClickListener(this@RegisterFragment)
         }
     }
 
@@ -67,7 +73,7 @@ class RegisterFragment :
             binding.btnRegister.id -> register()
             binding.ivShowPassword.id -> showHidePassword()
             binding.ivShowConfirmedPassword.id -> showHideConfirmedPassword()
-            binding.tvNavigateToLogin.id -> gotoLoginScreen()
+            binding.tvNavigateToLoginScreen.id -> gotoLoginScreen()
         }
     }
 
@@ -100,7 +106,7 @@ class RegisterFragment :
     }
 
     private fun gotoLoginScreen() {
-        findNavController().navigateUp()
+       findNavController().navigateUp()
     }
 
     private fun showHidePassword() {

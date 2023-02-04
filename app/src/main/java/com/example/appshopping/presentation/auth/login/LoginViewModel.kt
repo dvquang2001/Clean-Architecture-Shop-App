@@ -1,42 +1,49 @@
 package com.example.appshopping.presentation.auth.login
 
-import android.util.Log
 import android.util.Patterns
 import com.example.appshopping.base.BaseViewEffect
 import com.example.appshopping.base.BaseViewEvent
 import com.example.appshopping.base.BaseViewModel
 import com.example.appshopping.base.BaseViewState
 import com.example.appshopping.domain.model.ResultModel
+import com.example.appshopping.domain.usecase.check_login.CheckLoginUseCase
 import com.example.appshopping.domain.usecase.login.LoginParam
 import com.example.appshopping.domain.usecase.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
-) : BaseViewModel<LoginViewModel.ViewState,LoginViewModel.ViewEvent, LoginViewModel.ViewEffect>(ViewState()) {
+    private val loginUseCase: LoginUseCase,
+    private val checkLoginUseCase: CheckLoginUseCase
+) : BaseViewModel<LoginViewModel.ViewState, LoginViewModel.ViewEvent, LoginViewModel.ViewEffect>(
+    ViewState()
+) {
 
     private var loginJob: Job? = null
 
     private fun login(email: String, password: String) {
-        val validateLogin = validateLogin(email,password)
-        if(!validateLogin) return
+        val validateLogin = validateLogin(email, password)
+        if (!validateLogin) return
         loginJob?.cancel()
         loginJob = coroutineScope.launch {
-            when(val result = loginUseCase.invoke(LoginParam(email,password)).firstOrNull()) {
-                is ResultModel.Success -> {
-                    setEffect(ViewEffect.LoginSuccess)
-                    Log.d("Main","in Job success")
-                }
-                is ResultModel.Error -> {
-                    setEffect(
-                        ViewEffect.Error(message = result.t.message ?: "Unknown error")
-                    )
-                    Log.d("Main","in Job err")
+            loginUseCase(LoginParam(email, password)).collect { result ->
+                when (result) {
+                    is ResultModel.Success -> {
+                        setEffect(ViewEffect.LoginSuccess)
+                    }
+                    is ResultModel.Error -> {
+                        setEffect(
+                            ViewEffect.Error(message = result.t.message ?: "Unknown error")
+                        )
+                    }
+                    is ResultModel.Loading -> {
+                        setEffect(
+                            ViewEffect.Loading
+                        )
+                    }
                 }
             }
         }
@@ -52,7 +59,7 @@ class LoginViewModel @Inject constructor(
             )
             return false
         }
-        if(password.trim().isEmpty()) {
+        if (password.trim().isEmpty()) {
             setState(
                 currentState.copy(
                     passwordError = "Password cannot be empty"
@@ -60,7 +67,7 @@ class LoginViewModel @Inject constructor(
             )
             return false
         }
-        if(password.trim().length < 8) {
+        if (password.trim().length < 8) {
             setState(
                 currentState.copy(
                     passwordError = "Password must be longer than 8"
@@ -71,10 +78,19 @@ class LoginViewModel @Inject constructor(
         return true
     }
 
+    private fun checkLogin() {
+        val loggedIn = checkLoginUseCase()
+        setState(
+            currentState.copy(
+                loggedIn = loggedIn
+            )
+        )
+    }
+
     override fun onEvent(event: ViewEvent) {
-        when(event) {
-            is ViewEvent.LoginEvent -> login(event.email,event.password)
-            is ViewEvent.CheckLogin -> {}
+        when (event) {
+            is ViewEvent.LoginEvent -> login(event.email, event.password)
+            is ViewEvent.CheckLogin -> checkLogin()
         }
     }
 
@@ -97,8 +113,8 @@ class LoginViewModel @Inject constructor(
         data class Error(val message: String) : ViewEffect
 
         object LoginSuccess : ViewEffect
+        object Loading : ViewEffect
     }
-
 
 
 }

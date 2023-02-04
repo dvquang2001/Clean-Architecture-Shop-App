@@ -10,7 +10,6 @@ import com.example.appshopping.domain.usecase.register.RegisterParam
 import com.example.appshopping.domain.usecase.register.RegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,15 +27,21 @@ class RegisterViewModel @Inject constructor(
         if (!validateRegister) return
         registerJob?.cancel()
         registerJob = coroutineScope.launch {
-            when (val result =
-                registerUseCase.invoke(RegisterParam(email, password)).firstOrNull()) {
-                is ResultModel.Success -> {
-                    setEffect(ViewEffect.RegisterSuccess)
-                }
-                is ResultModel.Error -> {
-                    setEffect(
-                        ViewEffect.Error(message = result.t.message ?: "Unknown error")
-                    )
+            registerUseCase(RegisterParam(email,password)).collect { result ->
+                when(result) {
+                    is ResultModel.Success -> {
+                        setEffect(ViewEffect.RegisterSuccess)
+                    }
+                    is ResultModel.Error -> {
+                        setEffect(
+                            ViewEffect.Error(message = result.t.message ?: "Unknown error")
+                        )
+                    }
+                    is ResultModel.Loading -> {
+                        setEffect(
+                            ViewEffect.Loading
+                        )
+                    }
                 }
             }
         }
@@ -47,6 +52,13 @@ class RegisterViewModel @Inject constructor(
         password: String,
         confirmedPassword: String
     ): Boolean {
+        if(email.trim().isEmpty()) {
+            setState(
+                currentState.copy(
+                    emailError = "Email cannot be empty"
+                )
+            )
+        }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             setState(
                 currentState.copy(
@@ -106,6 +118,7 @@ class RegisterViewModel @Inject constructor(
         data class Error(val message: String) : ViewEffect
 
         object RegisterSuccess : ViewEffect
+        object Loading: ViewEffect
     }
 
 }

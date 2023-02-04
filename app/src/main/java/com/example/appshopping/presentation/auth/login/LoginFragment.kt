@@ -38,14 +38,20 @@ class LoginFragment :
                 viewModel.effect.collect { uiEffect ->
                     when (uiEffect) {
                         is LoginViewModel.ViewEffect.LoginSuccess -> {
+                            binding.progressBar.visibility = View.GONE
                             val intent = Intent(
                                 requireActivity(), MainActivity::class.java
                             )
                             startActivity(intent)
+                            activity?.finish()
                         }
                         is LoginViewModel.ViewEffect.Error -> {
+                            binding.progressBar.visibility = View.GONE
                             Toast.makeText(requireContext(), uiEffect.message, Toast.LENGTH_LONG)
                                 .show()
+                        }
+                        is LoginViewModel.ViewEffect.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -78,6 +84,11 @@ class LoginFragment :
                 PasswordTransformationMethod.getInstance()
             ivShowPassword.setImageResource(R.drawable.ic_show_password)
         }
+        checkLogin()
+    }
+
+    private fun checkLogin() {
+        viewModel.onEvent(LoginViewModel.ViewEvent.CheckLogin)
     }
 
     private fun login() {
@@ -94,7 +105,8 @@ class LoginFragment :
     }
 
     private fun gotoResetEmailScreen() {
-
+        val action = LoginFragmentDirections.actionLoginFragmentToResetPasswordFragment()
+        findNavController().navigate(action)
     }
 
     private fun showHidePassword() {
@@ -113,8 +125,13 @@ class LoginFragment :
 
     private fun handleLogin(loggedIn: Boolean) {
         if (loggedIn) {
-            val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-            findNavController().navigate(action)
+            val intent = Intent(
+                requireActivity(), MainActivity::class.java
+            )
+            startActivity(intent)
+            activity?.finish()
         }
     }
+
+
 }

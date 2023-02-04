@@ -29,7 +29,7 @@ abstract class BaseViewModel<ViewState : BaseViewState, ViewEvent : BaseViewEven
      */
     protected open var currentState: ViewState = initialViewState
     private val _state = MutableStateFlow(initialViewState)
-    val state: Flow<ViewState> = _state
+    val state: Flow<ViewState> = _state.asStateFlow()
 
     /**
      * Update state and notify to consumer.
