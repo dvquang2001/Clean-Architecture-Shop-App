@@ -97,6 +97,12 @@ dependencies {
     // Gson
     implementation 'com.google.code.gson:gson:2.10.1'
 
+    // indicator
+    implementation 'me.relex:circleindicator:2.1.6'
+
+    // CardView
+    implementation("androidx.cardview:cardview:1.0.0")
+
 }
 
 kapt {

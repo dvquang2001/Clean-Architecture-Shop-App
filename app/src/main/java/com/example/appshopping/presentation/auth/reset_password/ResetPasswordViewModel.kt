@@ -5,8 +5,8 @@ import com.example.appshopping.base.BaseViewEffect
 import com.example.appshopping.base.BaseViewEvent
 import com.example.appshopping.base.BaseViewModel
 import com.example.appshopping.base.BaseViewState
-import com.example.appshopping.domain.usecase.reset_password.ResetPasswordParam
-import com.example.appshopping.domain.usecase.reset_password.ResetPasswordUseCase
+import com.example.appshopping.domain.usecase.auth.reset_password.ResetPasswordParam
+import com.example.appshopping.domain.usecase.auth.reset_password.ResetPasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

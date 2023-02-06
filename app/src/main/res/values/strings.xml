@@ -27,6 +27,10 @@
     <string name="title_check_email">Check your email</string>
     <string name="description_check_email">We have sent password recovery instruction to your email.</string>
     <string name="confirm_check">Back</string>
+    <string name="home">Home</string>
+    <string name="setting">Setting</string>
+    <string name="user_info">User info</string>
+    <string name="user">User</string>
 
 
 </resources>

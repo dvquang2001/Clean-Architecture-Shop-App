@@ -1,6 +1,6 @@
 package com.example.appshopping.data.dto
 
-import com.example.appshopping.domain.model.LoginModel
+import com.example.appshopping.domain.model.auth.LoginModel
 
 class LoginDto(val id: String, val email: String) {
 

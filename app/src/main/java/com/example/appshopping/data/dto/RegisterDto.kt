@@ -1,6 +1,6 @@
 package com.example.appshopping.data.dto
 
-import com.example.appshopping.domain.model.RegisterModel
+import com.example.appshopping.domain.model.auth.RegisterModel
 
 class RegisterDto (
     val email: String,

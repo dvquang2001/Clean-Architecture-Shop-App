@@ -6,9 +6,9 @@ import com.example.appshopping.base.BaseViewEvent
 import com.example.appshopping.base.BaseViewModel
 import com.example.appshopping.base.BaseViewState
 import com.example.appshopping.domain.model.ResultModel
-import com.example.appshopping.domain.usecase.check_login.CheckLoginUseCase
-import com.example.appshopping.domain.usecase.login.LoginParam
-import com.example.appshopping.domain.usecase.login.LoginUseCase
+import com.example.appshopping.domain.usecase.auth.check_login.CheckLoginUseCase
+import com.example.appshopping.domain.usecase.auth.login.LoginParam
+import com.example.appshopping.domain.usecase.auth.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

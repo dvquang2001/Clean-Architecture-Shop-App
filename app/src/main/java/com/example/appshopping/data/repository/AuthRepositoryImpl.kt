@@ -3,13 +3,13 @@ package com.example.appshopping.data.repository
 import android.app.Application
 import com.example.appshopping.data.dto.LoginDto
 import com.example.appshopping.data.dto.RegisterDto
-import com.example.appshopping.domain.model.LoginModel
-import com.example.appshopping.domain.model.RegisterModel
+import com.example.appshopping.domain.model.auth.LoginModel
+import com.example.appshopping.domain.model.auth.RegisterModel
 import com.example.appshopping.domain.model.ResultModel
 import com.example.appshopping.domain.repository.AuthRepository
-import com.example.appshopping.domain.usecase.login.LoginParam
-import com.example.appshopping.domain.usecase.register.RegisterParam
-import com.example.appshopping.domain.usecase.reset_password.ResetPasswordParam
+import com.example.appshopping.domain.usecase.auth.login.LoginParam
+import com.example.appshopping.domain.usecase.auth.register.RegisterParam
+import com.example.appshopping.domain.usecase.auth.reset_password.ResetPasswordParam
 import com.example.appshopping.other.Constant.LOGGED_IN
 import com.example.appshopping.other.Constant.SHARED_PREFS
 import com.example.appshopping.other.Constant.USER_DATA
@@ -53,14 +53,14 @@ class AuthRepositoryImpl @Inject constructor(
         return sharePreferences.getBoolean(LOGGED_IN,false)
     }
 
-    override fun getCurrentUser(): Flow<ResultModel<LoginModel>> {
+    override fun getCurrentUser(): Flow<LoginModel?> {
         return flow {
             val userData = getUserDataFromStorage()
             if(userData != null) {
                 val loginModel = userData.toLoginModel()
-                emit(ResultModel.Success(loginModel))
+                emit(loginModel)
             } else {
-                emit(ResultModel.Error(Exception("User Not Found")))
+                emit(null)
             }
         }
     }

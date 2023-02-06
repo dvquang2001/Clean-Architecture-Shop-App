@@ -6,8 +6,8 @@ import com.example.appshopping.base.BaseViewEvent
 import com.example.appshopping.base.BaseViewModel
 import com.example.appshopping.base.BaseViewState
 import com.example.appshopping.domain.model.ResultModel
-import com.example.appshopping.domain.usecase.register.RegisterParam
-import com.example.appshopping.domain.usecase.register.RegisterUseCase
+import com.example.appshopping.domain.usecase.auth.register.RegisterParam
+import com.example.appshopping.domain.usecase.auth.register.RegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

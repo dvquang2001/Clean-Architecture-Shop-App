@@ -8,6 +8,6 @@
     <fragment
         tools:layout="@layout/fragment_home"
         android:id="@+id/homeFragment"
-        android:name="com.example.appshopping.presentation.main.HomeFragment"
+        android:name="com.example.appshopping.presentation.main.home_screen.HomeFragment"
         android:label="HomeFragment" />
 </navigation>

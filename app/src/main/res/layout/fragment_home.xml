@@ -1,20 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/neutral_10"
+        android:fillViewport="true">
 
-        <TextView
-            android:textSize="32sp"
-            android:gravity="center"
-            android:text="@string/app_name"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/regular_margin">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="260dp" />
+
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/viewPager"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_between_elements"
+                app:ci_drawable="@drawable/bg_indicator" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="8dp"
+                tools:listitem="@layout/item_product"
+                app:spanCount="2"
+                app:layoutManager=
+                    "androidx.recyclerview.widget.GridLayoutManager"
+                android:id="@+id/rcvProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/indicator"
+                android:layout_marginVertical="@dimen/big_margin3" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/rcvProduct"
+                android:layout_marginHorizontal="@dimen/regular_margin"
+                android:background="@color/start_color_app_icon" />
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
 </layout>

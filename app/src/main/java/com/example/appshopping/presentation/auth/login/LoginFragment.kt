@@ -125,11 +125,11 @@ class LoginFragment :
 
     private fun handleLogin(loggedIn: Boolean) {
         if (loggedIn) {
-            val intent = Intent(
-                requireActivity(), MainActivity::class.java
-            )
-            startActivity(intent)
-            activity?.finish()
+//            val intent = Intent(
+//                requireActivity(), MainActivity::class.java
+//            )
+//            startActivity(intent)
+//            activity?.finish()
         }
     }
 
