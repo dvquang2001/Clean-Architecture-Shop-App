@@ -6,6 +6,8 @@ import com.example.appshopping.domain.usecase.main.change_user_info.ChangeUserIn
 import com.example.appshopping.domain.usecase.main.change_user_info.ChangeUserInfoUseCaseImpl
 import com.example.appshopping.domain.usecase.main.get_products.GetProductsUseCase
 import com.example.appshopping.domain.usecase.main.get_products.GetProductsUseCaseImpl
+import com.example.appshopping.domain.usecase.main.get_products_by_user_id.GetProductsByUserIdUseCase
+import com.example.appshopping.domain.usecase.main.get_products_by_user_id.GetProductsByUserIdUseCaseImpl
 import com.example.appshopping.domain.usecase.main.get_single_product.GetProductUseCase
 import com.example.appshopping.domain.usecase.main.get_single_product.GetProductUseCaseImpl
 import com.example.appshopping.domain.usecase.main.get_user.GetUserInfoUseCase
@@ -45,4 +47,8 @@ abstract class DomainMainAppModule {
     @Binds
     @ViewModelScoped
     abstract fun bindChangePasswordUseCase(changePasswordUseCaseImpl: ChangePasswordUseCaseImpl): ChangePasswordUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetProductsByUserIdUseCase(getProductsByUserIdUseCaseImpl: GetProductsByUserIdUseCaseImpl): GetProductsByUserIdUseCase
 }

@@ -1,5 +1,6 @@
 package com.example.appshopping.presentation.auth.login
 
+import android.util.Log
 import android.util.Patterns
 import com.example.appshopping.base.BaseViewEffect
 import com.example.appshopping.base.BaseViewEvent
@@ -80,6 +81,7 @@ class LoginViewModel @Inject constructor(
 
     private fun checkLogin() {
         val loggedIn = checkLoginUseCase()
+        Log.d("Loginvm Main",loggedIn.toString())
         setState(
             currentState.copy(
                 loggedIn = loggedIn

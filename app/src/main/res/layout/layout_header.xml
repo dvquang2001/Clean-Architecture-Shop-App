@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="iconStart"
+            type="android.graphics.drawable.Drawable" />
+        <variable
+            name="iconEnd"
+            type="android.graphics.drawable.Drawable" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/start_color_app_icon"
+        android:paddingVertical="@dimen/small_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_marginStart="@dimen/regular_margin"
+            tools:src="@drawable/ic_back"
+            android:id="@+id/iconStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@{iconStart}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            tools:text="@string/app_title"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{@string/app_title}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            tools:src="@drawable/ic_cart"
+            app:layout_goneMarginEnd="@dimen/regular_margin"
+            android:id="@+id/iconEnd"
+            android:src="@{iconEnd}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/regular_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

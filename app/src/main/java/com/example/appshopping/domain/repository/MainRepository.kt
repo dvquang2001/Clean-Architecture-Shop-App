@@ -25,4 +25,6 @@ interface MainRepository {
 
     suspend fun saveUserToStorage()
 
+    fun getProductsByUserId(listProductId: List<String>): Flow<List<ProductModel>>
+
 }

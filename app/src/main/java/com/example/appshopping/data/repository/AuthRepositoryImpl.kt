@@ -1,6 +1,7 @@
 package com.example.appshopping.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.appshopping.data.dto.LoginDto
 import com.example.appshopping.data.dto.RegisterDto
 import com.example.appshopping.domain.model.auth.LoginModel
@@ -10,6 +11,7 @@ import com.example.appshopping.domain.repository.AuthRepository
 import com.example.appshopping.domain.usecase.auth.login.LoginParam
 import com.example.appshopping.domain.usecase.auth.register.RegisterParam
 import com.example.appshopping.domain.usecase.auth.reset_password.ResetPasswordParam
+import com.example.appshopping.other.Constant
 import com.example.appshopping.other.Constant.LOGGED_IN
 import com.example.appshopping.other.Constant.USER_DATA_LOGIN
 import com.google.firebase.auth.ktx.auth
@@ -32,15 +34,17 @@ class AuthRepositoryImpl @Inject constructor(
             this.putString(USER_DATA_LOGIN, jsonString)
         }.apply()
     }
+    private var isLogin = false
 
     private fun getUserDataFromStorage(): LoginDto? {
         val userDataString = sharePreferences.getString(USER_DATA_LOGIN, null)
         return gson.fromJson(userDataString, LoginDto::class.java)
     }
 
-    private fun saveLoginState(loggedIn: Boolean){
+    private fun saveLoginState(){
+        isLogin = true
         sharePreferences.edit().apply {
-            this.putBoolean(LOGGED_IN,loggedIn)
+            this.putBoolean(LOGGED_IN,isLogin)
         }.apply()
     }
 
@@ -77,7 +81,7 @@ class AuthRepositoryImpl @Inject constructor(
                                 email = firebaseUser.email ?: ""
                             )
                             saveUserDataToStorage(loginDto)
-                            saveLoginState(loggedIn = true)
+                            saveLoginState()
                             val model = loginDto.toLoginModel()
                             trySend(ResultModel.Success(model))
                         } else {
@@ -111,7 +115,7 @@ class AuthRepositoryImpl @Inject constructor(
                             val model = registerDto.toRegisterModel()
                             val loginDto = LoginDto(registerDto.id,registerDto.email)
                             saveUserDataToStorage(loginDto)
-                            saveLoginState(loggedIn = true)
+                            saveLoginState()
                             trySend(ResultModel.Success(model))
                         } else {
                             val result = ResultModel.Error(Exception())
@@ -125,6 +129,16 @@ class AuthRepositoryImpl @Inject constructor(
                     }
                 }
             awaitClose()
+        }
+    }
+
+    override fun logout(): Flow<Boolean> {
+        return flow {
+            isLogin = false
+            sharePreferences.edit().apply {
+                this.putBoolean(Constant.LOGGED_IN,false)
+            }.apply()
+            emit(isLogin)
         }
     }
 

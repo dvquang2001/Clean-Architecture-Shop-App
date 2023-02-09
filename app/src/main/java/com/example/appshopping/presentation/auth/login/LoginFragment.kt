@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.appshopping.R
 import com.example.appshopping.base.BaseFragment
 import com.example.appshopping.databinding.FragmentLoginBinding
-import com.example.appshopping.presentation.main.MainActivity
+import com.example.appshopping.presentation.main.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -125,11 +125,11 @@ class LoginFragment :
 
     private fun handleLogin(loggedIn: Boolean) {
         if (loggedIn) {
-//            val intent = Intent(
-//                requireActivity(), MainActivity::class.java
-//            )
-//            startActivity(intent)
-//            activity?.finish()
+            val intent = Intent(
+                requireActivity(), MainActivity::class.java
+            )
+            startActivity(intent)
+            activity?.finish()
         }
     }
 

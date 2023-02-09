@@ -6,5 +6,6 @@ data class UserModel(
     val email: String,
     val password: String,
     val gender: String,
-    val accountBalance: String
+    val accountBalance: String,
+    val productId: List<String>
 )
