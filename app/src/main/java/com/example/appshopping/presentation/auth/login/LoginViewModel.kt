@@ -70,7 +70,7 @@ class LoginViewModel @Inject constructor(
         if (password.trim().length < 8) {
             setState(
                 currentState.copy(
-                    passwordError = "Password must be longer than 8"
+                    passwordError = "Password must be longer than 8 characters"
                 )
             )
             return false

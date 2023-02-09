@@ -5,8 +5,9 @@ import com.example.appshopping.base.BaseViewEvent
 import com.example.appshopping.base.BaseViewModel
 import com.example.appshopping.base.BaseViewState
 import com.example.appshopping.domain.model.main.ProductModel
-import com.example.appshopping.domain.usecase.auth.getUserData.GetUserDataUseCase
-import com.example.appshopping.domain.usecase.main.get_product.GetProductUseCase
+import com.example.appshopping.domain.usecase.main.get_products.GetProductsUseCase
+import com.example.appshopping.domain.usecase.main.get_single_product.GetProductUseCase
+import com.example.appshopping.domain.model.main.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -14,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getUserDataUseCase: GetUserDataUseCase,
-    private val getProductUseCase: GetProductUseCase,
+    private val getProductsUseCase: GetProductsUseCase,
+    private val getProductUseCase: GetProductUseCase
 ) :
     BaseViewModel<HomeViewModel.ViewState, HomeViewModel.ViewEvent, HomeViewModel.ViewEffect>(
         ViewState()
@@ -26,7 +27,7 @@ class HomeViewModel @Inject constructor(
     private fun getAllProducts() {
         getProductsJob?.cancel()
         getProductsJob = coroutineScope.launch {
-            getProductUseCase().collect {
+            getProductsUseCase().collect {
                 setState(
                     currentState.copy(
                         list = it
@@ -36,8 +37,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun getProduct(id: String) {
+
+    }
+
     override fun onEvent(event: ViewEvent) {
-        when(event) {
+        when (event) {
             is ViewEvent.ShowList -> getAllProducts()
         }
     }
@@ -45,6 +50,7 @@ class HomeViewModel @Inject constructor(
     data class ViewState(
         val error: String? = null,
         val list: List<ProductModel> = listOf(),
+        val user: UserModel? = null
     ) : BaseViewState
 
     sealed interface ViewEvent : BaseViewEvent {

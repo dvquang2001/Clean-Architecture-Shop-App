@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AppShopping</string>
+
+    // Login Screen, Register Screen
+    <string name="app_title">Shop Shop</string>
+    <string name="description_login">Đăng nhập để xem những sản phẩm mới</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="login">Đăng nhập</string>
+    <string name="navigate_to_register">Bạn chưa có tài khoản? Đăng ký</string>
+    <string name="register_description">Đăng ký để bắt đầu sử dụng</string>
+    <string name="navigate_to_login">Đã có tài khoản? Đăng nhập</string>
+
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="confirmed_password">Xác thực mật khẩu</string>
+    <string name="email_hint">example@gmail.com</string>
+    <string name="password_hint">**********</string>
+    <string name="full_name_hint">Shop Shop</string>
+    <string name="register">Đăng ký</string>
+
+    // Forgot Password Screen
+    <string name="description_forgot_password">Nhập email đã đăng ký của bạn dưới đây để nhận hướng dẫn đặt lại mật khẩu.</string>
+    <string name="send">Gửi</string>z
+    <string name="forgot_password_navigate_to_login">Quay lại đăng nhập</string>
+
+    // Check Email Screen
+    <string name="title_check_email">Kiểm tra email của bạn</string>
+    <string name="description_check_email">Chúng tôi đã gửi hướng dẫn khôi phục mật khẩu đến email của bạn.</string>
+    <string name="confirm_check">Quay lại</string>
+    <string name="home">Trang chủ</string>
+    <string name="setting">Cài đặt</string>
+    <string name="user_info">Người dùng</string>
+    <string name="user">Người dùng</string>
+    <string name="logout">Đăng xuất</string>
+
+    // User Info Screen
+    <string name="support">Hỗ trợ</string>
+    <string name="name">Tên</string>
+    <string name="setup">Cài đặt</string>
+    <string name="gender">Giới tính</string>
+    <string name="about">Về chúng tôi</string>
+    <string name="account_balance">Số dư tài khoản</string>
+    <string name="change_name">Đổi tên</string>
+    <string name="change_name_desc">Nhập tên của bạn</string>
+    <string name="hint_text_change_name">Tên của bạn</string>
+    <string name="save">Lưu</string>
+    <string name="cancel">Hủy bỏ</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="other">Khác</string>
+    <string name="change">Thay đổi</string>
+    <string name="change_password">Đổi mật khẩu</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="change_password_desc">Nhập mật khẩu mới của bạn</string>
+
+    <string name="log_out_desc">Bạn có muống đăng xuất?</string>
+    <string name="log_out_title">Đăng xuất</string>
+    <string name="buy_now">Mua ngay</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="introduce">Giới thiệu</string>
+    <string name="change_success">Đối thành công</string>
+    <string name="screen_mode">Chế độ sáng/tối</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="new_product">Sản phẩm mới</string>
+    <string name="see_all"><![CDATA[Xen tất cả >]]></string>
+    <string name="contact">Liên hệ: 0972533708\n
+    Trang chủ: https:clean.com</string>
+
+</resources>

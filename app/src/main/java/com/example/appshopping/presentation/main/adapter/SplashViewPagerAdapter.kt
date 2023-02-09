@@ -8,9 +8,9 @@ import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appshopping.R
 
-class ViewPagerAdapter(
+class SplashViewPagerAdapter(
     private val images: List<Int>,
-) : RecyclerView.Adapter<ViewPagerAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SplashViewPagerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(@DrawableRes imgResource: Int) {
             val currentImage = itemView.findViewById<ImageView>(R.id.ivImage)

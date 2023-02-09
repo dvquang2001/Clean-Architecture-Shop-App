@@ -18,31 +18,70 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/regular_margin">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
+                app:iss_delay="0"
+                app:iss_period="3000"
+                app:iss_corner_radius="20"
+                app:iss_auto_cycle="true"
                 android:layout_height="260dp" />
 
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_below="@id/viewPager"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin_between_elements"
-                app:ci_drawable="@drawable/bg_indicator" />
+            <TextView
+                android:textSize="16sp"
+                android:textStyle="italic"
+                android:background="@color/white"
+                android:textColor="@color/start_color_app_icon"
+                android:paddingTop="@dimen/small_margin"
+                android:gravity="center"
+                android:id="@+id/tvContact"
+                android:layout_below="@id/imageSlider"
+                android:text="@string/contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvContact"
+                android:background="@color/white"
+                android:paddingTop="@dimen/big_margin4"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/small_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="@string/new_product"
+                    android:textColor="@color/danger_main"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvNavigateToProductActivity"
+                    android:textColor="@color/start_color_app_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@string/see_all" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginStart="8dp"
+                android:layout_marginBottom="@dimen/small_margin"
                 tools:listitem="@layout/item_product"
                 app:spanCount="2"
                 app:layoutManager=
                     "androidx.recyclerview.widget.GridLayoutManager"
                 android:id="@+id/rcvProduct"
+                android:layout_below="@id/layoutTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/indicator"
-                android:layout_marginVertical="@dimen/big_margin3" />
+                 />
 
             <View
                 android:layout_width="match_parent"

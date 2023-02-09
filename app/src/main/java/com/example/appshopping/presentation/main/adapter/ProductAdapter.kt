@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.appshopping.R
 import com.example.appshopping.databinding.ItemProductBinding
 import com.example.appshopping.domain.model.main.ProductModel
@@ -61,11 +62,13 @@ class ProductAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(productModel: ProductModel) {
-            val image = itemView.findViewById<ImageView>(R.id.ivProduct)
+            val imageView = itemView.findViewById<ImageView>(R.id.ivProduct)
             val name = itemView.findViewById<TextView>(R.id.tvProductName)
             val price = itemView.findViewById<TextView>(R.id.tvProductPrice)
 
-            image.setImageResource(productModel.image)
+            Glide.with(itemView).load(productModel.image)
+                .placeholder(R.drawable.loading_img)
+                .into(imageView)
             name.text = productModel.name
             price.text = productModel.price
         }
