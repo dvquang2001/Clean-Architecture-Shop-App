@@ -70,4 +70,9 @@
     <string name="contact">Contact: 0972533708\n
     Website: https:clean.com</string>
 
+    <string name="all">All</string>
+    <string name="device">Device</string>
+    <string name="fashion">Fashion</string>
+    <string name="pay">Pay</string>
+
 </resources>

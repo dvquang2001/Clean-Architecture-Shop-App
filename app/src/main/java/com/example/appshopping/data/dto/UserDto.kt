@@ -8,10 +8,11 @@ class UserDto(
     val email: String? = null,
     val password: String? = null,
     val gender: String? = null,
-    val accountBalance: String? = null
+    val accountBalance: String? = null,
+    val productId: List<String> = listOf()
 ) {
     fun toUserModel(): UserModel {
-        return UserModel(id!!,name!!,email ?: "",password?:"",gender!!,accountBalance?: "")
+        return UserModel(id!!,name!!,email ?: "",password?:"",gender!!,accountBalance?: "",productId)
     }
 
     override fun toString(): String {

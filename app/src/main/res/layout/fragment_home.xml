@@ -18,7 +18,20 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/regular_margin">
 
+            <include
+                android:id="@+id/layoutHeader"
+                layout="@layout/layout_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconEnd="@{@drawable/ic_cart}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title="@{@string/app_title}" />
+
+
             <com.denzcoskun.imageslider.ImageSlider
+                android:layout_below="@id/layoutHeader"
                 android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
                 app:iss_delay="0"

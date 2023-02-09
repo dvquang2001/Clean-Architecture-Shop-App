@@ -18,5 +18,7 @@ interface AuthRepository {
 
     fun getCurrentUser(): Flow<LoginModel?>
 
+    fun logout(): Flow<Boolean>
+
     suspend fun resetPassword(param: ResetPasswordParam)
 }

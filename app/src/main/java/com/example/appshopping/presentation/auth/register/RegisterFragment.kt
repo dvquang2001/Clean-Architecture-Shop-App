@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.appshopping.R
 import com.example.appshopping.base.BaseFragment
 import com.example.appshopping.databinding.FragmentRegisterBinding
-import com.example.appshopping.presentation.main.MainActivity
+import com.example.appshopping.presentation.main.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

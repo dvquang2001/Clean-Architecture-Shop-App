@@ -7,81 +7,126 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
-        <ImageView
-            android:id="@+id/ivProduct"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:src="@drawable/nike"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvProductName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/regular_margin"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivProduct"
-            tools:text="Nike" />
+            <include
+                android:id="@+id/layoutHeader"
+                layout="@layout/layout_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconEnd="@{@drawable/ic_cart}"
+                app:iconStart="@{@drawable/ic_back}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title="@{@string/setting}" />
 
-        <TextView
-            android:id="@+id/tvProductPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_between_elements"
-            android:background="@color/start_color_app_icon"
-            android:gravity="start"
-            android:paddingHorizontal="@dimen/regular_margin"
-            android:paddingVertical="@dimen/margin_between_elements"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/tvProductName"
-            tools:text="2000$" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerProduct"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutHeader"/>
 
-        <TextView
-            android:id="@+id/tvIntroduce"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/regular_margin"
-            android:layout_marginTop="@dimen/margin_between_elements"
-            android:text="@string/introduce"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintTop_toBottomOf="@id/tvProductPrice" />
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/small_margin"
+                app:ci_drawable="@drawable/bg_indicator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewPagerProduct" />
 
-        <TextView
-            android:id="@+id/tvProductDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/regular_margin"
-            android:layout_marginTop="@dimen/margin_between_elements"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/tvIntroduce"
-            tools:text="The company was founded on January 25, 1964, by Bill Bowerman and Phil Knight, and officially became Nike, Inc. on May 30, 1971. The company takes its name from Nike, the Greek goddess of victory." />
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/regular_margin"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/indicator"
+                tools:text="Nike" />
+
+            <TextView
+                android:id="@+id/tvProductPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_between_elements"
+                android:background="@color/start_color_app_icon"
+                android:gravity="start"
+                android:paddingHorizontal="@dimen/regular_margin"
+                android:paddingVertical="@dimen/margin_between_elements"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/tvProductName"
+                tools:text="2000$" />
+
+            <TextView
+                android:id="@+id/tvIntroduce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/regular_margin"
+                android:layout_marginTop="@dimen/margin_between_elements"
+                android:text="@string/introduce"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintTop_toBottomOf="@id/tvProductPrice" />
+
+            <TextView
+                android:id="@+id/tvProductDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/regular_margin"
+                android:layout_marginTop="@dimen/margin_between_elements"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/tvIntroduce"
+                tools:text="The company was founded on January 25, 1964, by Bill Bowerman and Phil Knight, and officially became Nike, Inc. on May 30, 1971. The company takes its name from Nike, the Greek goddess of victory." />
+
+            <androidx.appcompat.widget.AppCompatButton
+                app:layout_constraintTop_toBottomOf="@id/tvProductDesc"
+                android:layout_marginTop="@dimen/big_margin4"
+                android:id="@+id/btnAddToCart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/regular_margin"
+                android:layout_marginBottom="@dimen/regular_margin"
+                android:background="@color/start_color_app_icon"
+                android:text="@string/add_to_cart"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnBuy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/regular_margin"
-            android:layout_marginBottom="@dimen/regular_margin"
-            android:background="@color/start_color_app_icon"
-            android:text="@string/buy_now"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginTop="@dimen/regular_margin"
+                android:id="@+id/btnBuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/regular_margin"
+                android:layout_marginBottom="@dimen/regular_margin"
+                android:background="@color/start_color_app_icon"
+                android:text="@string/buy_now"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/btnAddToCart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
 </layout>

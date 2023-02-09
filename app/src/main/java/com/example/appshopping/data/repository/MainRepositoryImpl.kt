@@ -3,14 +3,15 @@ package com.example.appshopping.data.repository
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.appshopping.data.dto.LoginDto
+import com.example.appshopping.data.dto.ProductDto
 import com.example.appshopping.data.dto.UserDto
 import com.example.appshopping.domain.model.ResultModel
 import com.example.appshopping.domain.model.auth.LoginModel
 import com.example.appshopping.domain.model.main.ProductModel
-import com.example.appshopping.domain.repository.MainRepository
-import com.example.appshopping.domain.usecase.main.add_product.ProductParam
 import com.example.appshopping.domain.model.main.UserModel
+import com.example.appshopping.domain.repository.MainRepository
 import com.example.appshopping.domain.usecase.auth.login.LoginParam
+import com.example.appshopping.domain.usecase.main.add_product.ProductParam
 import com.example.appshopping.domain.usecase.main.get_user.UserParam
 import com.example.appshopping.other.Constant.USER_DATA
 import com.example.appshopping.other.Constant.USER_DATA_LOGIN
@@ -103,9 +104,9 @@ class MainRepositoryImpl @Inject constructor(
             try {
                 val querySnapshot = productCollectionReference.whereEqualTo("id", id).get().await()
                 for (document in querySnapshot.documents) {
-                    val product = document.toObject<ProductModel>()
+                    val product = document.toObject<ProductDto>()
                     if (product != null) {
-                        emit(product)
+                        emit(product.toProductModel())
                     }
                 }
             } catch (e: Exception) {
@@ -120,9 +121,9 @@ class MainRepositoryImpl @Inject constructor(
                 val querySnapshot = productCollectionReference.get().await()
                 val list = mutableListOf<ProductModel>()
                 for (document in querySnapshot.documents) {
-                    val product = document.toObject<ProductModel>()
+                    val product = document.toObject<ProductDto>()
                     product?.let {
-                        list.add(product)
+                        list.add(product.toProductModel())
                     }
                 }
                 if (list.isNotEmpty()) {
@@ -207,6 +208,26 @@ class MainRepositoryImpl @Inject constructor(
             try {
                 val userDto = getUserInfoFromStorage()
                 emit(userDto?.toUserModel())
+            } catch (e: Exception) {
+                Log.d("Main", e.toString())
+            }
+        }
+    }
+
+    override fun getProductsByUserId(listProductId: List<String>): Flow<List<ProductModel>> {
+        return flow {
+            try {
+                val listProduct = mutableListOf<ProductModel>()
+                for(id in listProductId) {
+                    val querySnapshot = productCollectionReference.whereEqualTo("id", id).get().await()
+                    for (document in querySnapshot.documents) {
+                        val product = document.toObject<ProductDto>()
+                        if (product != null) {
+                            listProduct.add(product.toProductModel())
+                        }
+                    }
+                }
+                emit(listProduct)
             } catch (e: Exception) {
                 Log.d("Main", e.toString())
             }

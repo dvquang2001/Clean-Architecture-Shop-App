@@ -1,5 +1,7 @@
 package com.example.appshopping.domain.di
 
+import com.example.appshopping.domain.usecase.auth.logout.LogoutUseCase
+import com.example.appshopping.domain.usecase.auth.logout.LogoutUseCaseImpl
 import com.example.appshopping.domain.usecase.auth.check_login.CheckLoginParamUseCaseImpl
 import com.example.appshopping.domain.usecase.auth.check_login.CheckLoginUseCase
 import com.example.appshopping.domain.usecase.auth.get_user_data.GetUserDataUseCase
@@ -39,4 +41,10 @@ abstract class DomainAuthAppModule {
     @Binds
     @ViewModelScoped
     abstract fun bindResetPassword(impl: ResetPasswordUseCaseImpl): ResetPasswordUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindLogoutUseCase(impl: LogoutUseCaseImpl): LogoutUseCase
+
+
 }

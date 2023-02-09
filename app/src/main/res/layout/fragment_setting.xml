@@ -11,6 +11,16 @@
         android:layout_height="match_parent">
 
         <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/setting}" />
+
+        <include
             android:id="@+id/featureLanguage"
             layout="@layout/layout_feature"
             android:layout_width="match_parent"
@@ -19,7 +29,7 @@
             android:layout_marginTop="@dimen/big_margin3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader"
             app:description="@{@string/setup}"
             app:name="@{@string/language}" />
 
