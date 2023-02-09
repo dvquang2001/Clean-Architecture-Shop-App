@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,12 +10,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:textSize="32sp"
-            android:gravity="center"
-            android:text="Setting"
+        <include
+            android:id="@+id/featureLanguage"
+            layout="@layout/layout_feature"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="@dimen/regular_margin"
+            android:layout_marginTop="@dimen/big_margin3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:description="@{@string/setup}"
+            app:name="@{@string/language}" />
+
+        <include
+            android:id="@+id/featureSelectMode"
+            layout="@layout/layout_feature"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="@dimen/regular_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/featureLanguage"
+            app:description="@{@string/setup}"
+            app:name="@{@string/screen_mode}" />
+
+        <include
+            android:id="@+id/featureAbout"
+            layout="@layout/layout_feature"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="@dimen/regular_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/featureSelectMode"
+            app:name="@{@string/about}" />
+
+        <include
+            android:id="@+id/featureSupport"
+            layout="@layout/layout_feature"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="@dimen/regular_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/featureAbout"
+            app:name="@{@string/support}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

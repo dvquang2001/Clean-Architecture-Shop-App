@@ -1,9 +1,7 @@
-package com.example.appshopping.domain.usecase.auth.getUserData
+package com.example.appshopping.domain.usecase.auth.get_user_data
 
 import com.example.appshopping.domain.model.auth.LoginModel
-import com.example.appshopping.domain.model.ResultModel
 import com.example.appshopping.domain.repository.AuthRepository
-import com.example.appshopping.domain.usecase.auth.login.LoginParam
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

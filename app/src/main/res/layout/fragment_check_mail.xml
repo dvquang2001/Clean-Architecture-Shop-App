@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:src="@drawable/bg_image" />
+                android:src="@drawable/bg_image_icon" />
 
             <ImageView
                 android:id="@+id/ivEmail"
@@ -38,7 +38,7 @@
             android:id="@+id/tvCheckEmailTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_margin2"
+            android:layout_marginTop="@dimen/big_margin3"
             android:text="@string/title_check_email"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginStart="@dimen/regular_margin"
-            android:layout_marginTop="@dimen/big_margin2"
+            android:layout_marginTop="@dimen/big_margin3"
             android:layout_marginEnd="@dimen/regular_margin"
             android:background="@drawable/bg_button"
             android:text="@string/confirm_check"

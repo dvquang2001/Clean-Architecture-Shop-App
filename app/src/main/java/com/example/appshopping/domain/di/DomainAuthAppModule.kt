@@ -2,8 +2,8 @@ package com.example.appshopping.domain.di
 
 import com.example.appshopping.domain.usecase.auth.check_login.CheckLoginParamUseCaseImpl
 import com.example.appshopping.domain.usecase.auth.check_login.CheckLoginUseCase
-import com.example.appshopping.domain.usecase.auth.getUserData.GetUserDataUseCase
-import com.example.appshopping.domain.usecase.auth.getUserData.GetUserDataUseCaseImpl
+import com.example.appshopping.domain.usecase.auth.get_user_data.GetUserDataUseCase
+import com.example.appshopping.domain.usecase.auth.get_user_data.GetUserDataUseCaseImpl
 import com.example.appshopping.domain.usecase.auth.login.LoginUseCase
 import com.example.appshopping.domain.usecase.auth.login.LoginUseCaseImpl
 import com.example.appshopping.domain.usecase.auth.register.RegisterUseCase

@@ -12,12 +12,12 @@
 
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="confirm_password">Confirmed password</string>
+    <string name="confirmed_password">Confirmed password</string>
     <string name="email_hint">example@gmail.com</string>
     <string name="password_hint">**********</string>
     <string name="full_name_hint">Shop Shop</string>
     <string name="register">Register</string>
-    
+
     // Forgot Password Screen
     <string name="description_forgot_password">Enter your registered email below to receive password reset instruction.</string>
     <string name="send">Send</string>z
@@ -31,6 +31,43 @@
     <string name="setting">Setting</string>
     <string name="user_info">User info</string>
     <string name="user">User</string>
+    <string name="logout">Logout</string>
 
+    // User Info Screen
+    <string name="name">Name</string>
+    <string name="setup">Setup</string>
+    <string name="gender">Gender</string>
+    <string name="account_balance">Account balance</string>
+    <string name="change_name">Change name</string>
+    <string name="change_name_desc">Enter your new name</string>
+    <string name="hint_text_change_name">Your name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="change">Change</string>
+    <string name="change_password">Change password</string>
+    <string name="new_password">New password</string>
+    <string name="change_password_desc">Enter your new pass word</string>
+
+    <string name="log_out_desc">Are you sure you want to logout?</string>
+    <string name="log_out_title">Confirm logout</string>
+    <string name="buy_now">Buy now</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="introduce">Introduce</string>
+    <string name="change_success">Change success</string>
+    <string name="about">About</string>
+    <string name="support">Support</string>
+    <string name="screen_mode">Light/Dark mode</string>
+    <string name="language">Language</string>
+
+    <string name="english_language_mode" translatable="false">English(United Kingdom)</string>
+    <string name="vietnamese_language_mode" translatable="false">Tiếng Việt (Việt Nam)</string>
+    <string name="new_product">New product</string>
+    <string name="see_all"><![CDATA[See all >]]></string>
+
+    <string name="contact">Contact: 0972533708\n
+    Website: https:clean.com</string>
 
 </resources>

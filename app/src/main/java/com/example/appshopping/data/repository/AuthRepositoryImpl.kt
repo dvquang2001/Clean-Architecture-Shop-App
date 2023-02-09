@@ -1,6 +1,6 @@
 package com.example.appshopping.data.repository
 
-import android.app.Application
+import android.content.SharedPreferences
 import com.example.appshopping.data.dto.LoginDto
 import com.example.appshopping.data.dto.RegisterDto
 import com.example.appshopping.domain.model.auth.LoginModel
@@ -11,8 +11,7 @@ import com.example.appshopping.domain.usecase.auth.login.LoginParam
 import com.example.appshopping.domain.usecase.auth.register.RegisterParam
 import com.example.appshopping.domain.usecase.auth.reset_password.ResetPasswordParam
 import com.example.appshopping.other.Constant.LOGGED_IN
-import com.example.appshopping.other.Constant.SHARED_PREFS
-import com.example.appshopping.other.Constant.USER_DATA
+import com.example.appshopping.other.Constant.USER_DATA_LOGIN
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -23,23 +22,19 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private val application: Application,
+    private val sharePreferences: SharedPreferences,
     private val gson: Gson
 ) : AuthRepository {
-
-    private val sharePreferences by lazy {
-        application.getSharedPreferences(SHARED_PREFS, 0)
-    }
 
     private fun saveUserDataToStorage(loginDto: LoginDto) {
         val jsonString = gson.toJson(loginDto)
         sharePreferences.edit().apply {
-            this.putString(USER_DATA, jsonString)
+            this.putString(USER_DATA_LOGIN, jsonString)
         }.apply()
     }
 
     private fun getUserDataFromStorage(): LoginDto? {
-        val userDataString = sharePreferences.getString(USER_DATA, null)
+        val userDataString = sharePreferences.getString(USER_DATA_LOGIN, null)
         return gson.fromJson(userDataString, LoginDto::class.java)
     }
 

@@ -5,7 +5,7 @@ import com.example.appshopping.domain.model.main.ProductModel
 class ProductDto(
     val name: String,
     val price: String,
-    val image: Int,
+    val image: String,
     val origin: String,
 ) {
     fun toProductModel(): ProductModel {
