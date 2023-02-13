@@ -2,6 +2,7 @@ package com.example.appshopping.other
 
 object Constant {
 
+    const val MAIN_TAG = "Main"
 
     // Auth RepositoryImpl
     const val SHARED_PREFS = "sharePrefs"
@@ -14,4 +15,7 @@ object Constant {
     const val KEY_PRODUCT_ID = "KEY_PRODUCT_ID"
 
     const val LANGUAGE_SELECTION = "LANGUAGE_SELECTION"
+
+    const val USER_DATA_INFO = "USER_DATA_INFO"
+
 }

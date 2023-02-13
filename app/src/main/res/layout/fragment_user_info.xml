@@ -16,7 +16,6 @@
             layout="@layout/layout_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:iconEnd="@{@drawable/ic_cart}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,6 +46,7 @@
         </FrameLayout>
 
         <TextView
+            android:text="@string/user"
             android:id="@+id/tvGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,8 +55,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutIcon"
-            tools:text="Welcome user" />
+            app:layout_constraintTop_toBottomOf="@id/layoutIcon" />
 
         <TextView
             android:id="@+id/tvEmail"
@@ -78,27 +77,58 @@
             app:layout_constraintTop_toBottomOf="@+id/tvEmail"
             tools:text="Male" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnLogout"
+        <View
+            app:layout_constraintBottom_toTopOf="@id/ivCart"
+            android:layout_marginBottom="@dimen/margin_between_desc_and_title"
+            android:background="@color/neutral_10"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="@dimen/big_margin1"
+            android:layout_height="1dp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            android:id="@+id/ivCart"
+            app:layout_constraintTop_toBottomOf="@id/tvGender"
             android:layout_marginTop="@dimen/regular_margin"
-            android:background="@drawable/bg_button"
-            android:text="@string/logout"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvGender" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnLogout" />
+            android:layout_height="0dp">
 
+            <include
+                app:image="@{@drawable/ic_blue_cart}"
+                app:text="@{@string/cart}"
+                android:id="@+id/featureCart"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                layout="@layout/layout_cart_feature" />
+
+            <include
+                app:image="@{@drawable/ic_wait_confirmation}"
+                app:text="@{@string/wait_confirm}"
+                android:id="@+id/featureWaitConfirmation"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                layout="@layout/layout_cart_feature" />
+
+            <include
+                android:id="@+id/featureDelivery"
+                app:image="@{@drawable/ic_delivery}"
+                app:text="@{@string/delivery}"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                layout="@layout/layout_cart_feature" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            app:layout_constraintTop_toBottomOf="@id/ivCart"
+            android:layout_marginBottom="@dimen/margin_between_desc_and_title"
+            android:background="@color/neutral_10"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
 
         <include
             android:id="@+id/featureName"
@@ -110,7 +140,7 @@
             app:description="@{@string/setup}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnLogout"
+            app:layout_constraintTop_toBottomOf="@id/ivCart"
             app:name="@{@string/name}" />
 
         <include
@@ -138,6 +168,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/featureGender"
             app:name="@{@string/change_password}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="@dimen/big_margin1"
+            android:layout_marginTop="@dimen/regular_margin"
+            android:background="@drawable/bg_button"
+            android:text="@string/logout"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/featureChangePassword" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

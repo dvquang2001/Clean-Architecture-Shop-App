@@ -74,5 +74,15 @@
     <string name="device">Device</string>
     <string name="fashion">Fashion</string>
     <string name="pay">Pay</string>
+    <string name="price" translatable="false">%1$s$</string>
+    <string name="total_price">Total price: \n %1$s$</string>
+
+    <string name="cart">Cart</string>
+    <string name="delivery">Delivery</string>
+    <string name="wait_confirm">Wait for confirm</string>
+    <string name="empty_list_status">There are currently no products</string>
+
+    <string name="confirmation_desc">Wait for confirmation</string>
+    <string name="delivery_desc">Being transported</string>
 
 </resources>

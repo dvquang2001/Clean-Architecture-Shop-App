@@ -19,13 +19,19 @@
         android:theme="@style/Theme.AppShopping"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.main.cart.CartActivity"
+            android:name=".presentation.main.confirmation_screen.ConfirmationActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.main.product.ProductActivity"
+            android:name=".presentation.main.delivery_screen.DeliveryActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.main.detail.DetailActivity"
+            android:name=".presentation.main.cart_screen.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.main.products_screen.ProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.main.detail_screen.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.main.home.MainActivity"

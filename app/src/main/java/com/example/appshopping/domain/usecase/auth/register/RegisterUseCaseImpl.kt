@@ -11,7 +11,6 @@ class RegisterUseCaseImpl @Inject constructor(private val authRepository: AuthRe
     RegisterUseCase {
 
     override fun invoke(param: RegisterParam): Flow<ResultModel<RegisterModel>> {
-        Log.d("Main","Success in usecase")
         return authRepository.register(param)
     }
 }

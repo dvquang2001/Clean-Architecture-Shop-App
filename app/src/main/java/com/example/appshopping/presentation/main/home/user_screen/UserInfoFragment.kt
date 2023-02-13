@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.lifecycle.Lifecycle
@@ -12,10 +13,15 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.appshopping.R
 import com.example.appshopping.base.BaseFragment
 import com.example.appshopping.databinding.*
+import com.example.appshopping.domain.model.main.UserModel
 import com.example.appshopping.domain.usecase.auth.login.LoginParam
 import com.example.appshopping.domain.usecase.main.get_user.UserParam
+import com.example.appshopping.other.Constant
 import com.example.appshopping.presentation.auth.LoginActivity
-import com.example.appshopping.presentation.main.product.ProductActivity
+import com.example.appshopping.presentation.main.cart_screen.CartActivity
+import com.example.appshopping.presentation.main.confirmation_screen.ConfirmationActivity
+import com.example.appshopping.presentation.main.delivery_screen.DeliveryActivity
+import com.example.appshopping.presentation.main.products_screen.ProductActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,6 +35,7 @@ class UserInfoFragment :
     private lateinit var dialogLogoutBinding: LayoutDialogLogoutBinding
     private lateinit var dialogChangePasswordBinding: LayoutDialogChangePasswordBinding
     private var id: String? = null
+    private var user: UserModel? = null
 
     override fun initView() {
     }
@@ -45,11 +52,19 @@ class UserInfoFragment :
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect {
+                    user = it.user
                     id = it.id
                     binding.tvGreeting.text = it.name
                     binding.tvEmail.text = it.email
                     binding.tvGender.text = it.gender
                     handleLogout(it.loggedIn)
+                }
+            }
+        }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.state.collect {
+                    user = it.user
                 }
             }
         }
@@ -69,6 +84,12 @@ class UserInfoFragment :
                         is UserInfoViewModel.ViewEffect.ChangePasswordFail -> {
                             showSnackBar(effect.error)
                         }
+                        is UserInfoViewModel.ViewEffect.GetUserDataSuccess -> {
+
+                        }
+                        is UserInfoViewModel.ViewEffect.GetUserDataFail -> {
+                            showSnackBar(effect.error)
+                        }
                     }
                 }
             }
@@ -82,6 +103,9 @@ class UserInfoFragment :
             featureChangePassword.itemView.setOnClickListener(this@UserInfoFragment)
             btnLogout.setOnClickListener(this@UserInfoFragment)
             layoutHeader.iconEnd.setOnClickListener(this@UserInfoFragment)
+            featureCart.itemView.setOnClickListener(this@UserInfoFragment)
+            featureWaitConfirmation.itemView.setOnClickListener(this@UserInfoFragment)
+            featureDelivery.itemView.setOnClickListener(this@UserInfoFragment)
         }
     }
 
@@ -93,7 +117,28 @@ class UserInfoFragment :
             binding.featureChangePassword.itemView.id -> showChangePasswordScreen()
             binding.btnLogout.id -> logoutToLoginScreen()
             binding.layoutHeader.iconEnd.id -> navigateToProductActivity()
+            binding.featureCart.itemView.id -> navigateToCartScreen()
+            binding.featureDelivery.itemView.id -> navigateToDeliveryScreen()
+            binding.featureWaitConfirmation.itemView.id -> navigateToConfirmationScreen()
         }
+    }
+
+    private fun navigateToCartScreen() {
+        val intent = Intent(requireActivity(), CartActivity::class.java)
+        intent.putExtra(Constant.USER_DATA_INFO,user)
+        startActivity(intent)
+    }
+
+    private fun navigateToDeliveryScreen() {
+        val intent = Intent(requireActivity(), DeliveryActivity::class.java)
+        intent.putExtra(Constant.USER_DATA_INFO,user)
+        startActivity(intent)
+    }
+
+    private fun navigateToConfirmationScreen() {
+        val intent = Intent(requireActivity(), ConfirmationActivity::class.java)
+        intent.putExtra(Constant.USER_DATA_INFO,user)
+        startActivity(intent)
     }
 
     private fun navigateToProductActivity() {
@@ -227,6 +272,7 @@ class UserInfoFragment :
                     confirmedPassword
                 )
             )
+            dialog.dismiss()
         }
         dialogChangePasswordBinding.btnCancel.setOnClickListener {
             dialog.dismiss()
@@ -264,7 +310,12 @@ class UserInfoFragment :
         dialog.show()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.onEvent(UserInfoViewModel.ViewEvent.GetUserData)
+    }
+
     override fun initData() {
-        viewModel.onEvent(UserInfoViewModel.ViewEvent.CheckUserData)
+        viewModel.onEvent(UserInfoViewModel.ViewEvent.GetUserData)
     }
 }

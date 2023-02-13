@@ -7,6 +7,6 @@ class SaveUserUseCaseImpl @Inject constructor(private val mainRepository: MainRe
     : SaveUserUseCase{
 
     override suspend fun invoke() {
-        mainRepository.saveUserToStorage()
+        mainRepository.saveUserDataToStorage()
     }
 }
