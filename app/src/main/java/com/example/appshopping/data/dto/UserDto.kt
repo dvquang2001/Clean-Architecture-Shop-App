@@ -6,16 +6,25 @@ class UserDto(
     val id: String? = null,
     val name: String? = null,
     val email: String? = null,
-    val password: String? = null,
     val gender: String? = null,
     val accountBalance: String? = null,
-    val productId: List<String> = listOf()
+    val cartProducts: List<String> = listOf(),
+    val confirmationProducts: List<String> = listOf(),
+    val deliveryProducts: List<String> = listOf()
 ) {
     fun toUserModel(): UserModel {
-        return UserModel(id!!,name!!,email ?: "",password?:"",gender!!,accountBalance?: "",productId)
+        return UserModel(
+            id!!,
+            name!!,
+            email ?: "",
+            gender!!,
+            accountBalance ?: "",
+            cartProducts,
+            confirmationProducts,
+            deliveryProducts
+        )
     }
-
     override fun toString(): String {
-        return "id = $id,name = $name,email = $email,password = $password,gender = $gender,account = $accountBalance"
+        return "id = $id,name = $name,email = $email,gender = $gender,account = $accountBalance, productId: $cartProducts"
     }
 }

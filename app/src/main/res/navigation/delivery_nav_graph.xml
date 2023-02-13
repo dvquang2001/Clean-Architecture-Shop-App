@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/delivery_navigation"
+    app:startDestination="@id/deliveryFragment">
+
+    <fragment
+        tools:layout="@layout/fragment_delivery"
+        android:id="@+id/deliveryFragment"
+        android:name="com.example.appshopping.presentation.main.delivery_screen.DeliveryFragment"
+        android:label="DeliveryFragment" />
+</navigation>

@@ -44,6 +44,7 @@ class RegisterFragment :
                                 requireActivity(), MainActivity::class.java
                             )
                             startActivity(intent)
+                            activity?.finish()
                         }
                         is RegisterViewModel.ViewEffect.Error -> {
                             binding.progressBar.visibility = View.GONE

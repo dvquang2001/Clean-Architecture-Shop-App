@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_between_elements">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutItem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/ivProduct"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="@dimen/small_margin"
+                android:paddingVertical="@dimen/margin_between_elements"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/nike" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/tvPrice"
+                app:layout_constraintStart_toEndOf="@id/ivProduct"
+                app:layout_constraintTop_toTopOf="@id/ivProduct"
+                tools:text="Converse" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/danger_main"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivProduct"
+                app:layout_constraintStart_toStartOf="@id/tvName"
+                app:layout_constraintTop_toBottomOf="@id/tvName"
+                tools:text="400$" />
+
+            <TextView
+                android:id="@+id/tvItemDesc"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="14sp"
+                android:textColor="@color/danger_main"
+                app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+                tools:text="Wait for confirmation"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

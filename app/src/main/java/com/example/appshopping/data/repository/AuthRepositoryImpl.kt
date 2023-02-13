@@ -4,17 +4,21 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.appshopping.data.dto.LoginDto
 import com.example.appshopping.data.dto.RegisterDto
+import com.example.appshopping.data.dto.UserDto
+import com.example.appshopping.domain.model.ResultModel
 import com.example.appshopping.domain.model.auth.LoginModel
 import com.example.appshopping.domain.model.auth.RegisterModel
-import com.example.appshopping.domain.model.ResultModel
+import com.example.appshopping.domain.model.main.UserModel
 import com.example.appshopping.domain.repository.AuthRepository
 import com.example.appshopping.domain.usecase.auth.login.LoginParam
 import com.example.appshopping.domain.usecase.auth.register.RegisterParam
 import com.example.appshopping.domain.usecase.auth.reset_password.ResetPasswordParam
-import com.example.appshopping.other.Constant
 import com.example.appshopping.other.Constant.LOGGED_IN
+import com.example.appshopping.other.Constant.MAIN_TAG
+import com.example.appshopping.other.Constant.USER_DATA
 import com.example.appshopping.other.Constant.USER_DATA_LOGIN
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.coroutines.channels.awaitClose
@@ -22,6 +26,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import javax.inject.Named
 
 class AuthRepositoryImpl @Inject constructor(
     private val sharePreferences: SharedPreferences,
@@ -136,7 +141,9 @@ class AuthRepositoryImpl @Inject constructor(
         return flow {
             isLogin = false
             sharePreferences.edit().apply {
-                this.putBoolean(Constant.LOGGED_IN,false)
+                this.putBoolean(LOGGED_IN,false)
+                this.putString(USER_DATA_LOGIN,"")
+                this.putString(USER_DATA,"")
             }.apply()
             emit(isLogin)
         }

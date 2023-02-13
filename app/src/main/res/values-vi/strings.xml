@@ -70,5 +70,14 @@
     <string name="all">Tất cả</string>
     <string name="device">Thiết bị điện tử</string>
     <string name="fashion">Thời trang</string>
+    <string name="pay">Thanh toán</string>
+    <string name="total_price">Tổng tiền: \n %1$s</string>
 
+    <string name="cart">Giỏ hàng</string>
+    <string name="delivery">Đang vận chuyển</string>
+    <string name="wait_confirm">Chờ xác nhận</string>
+    <string name="empty_list_status">Hiện chưa có sản phẩm nào</string>
+
+    <string name="confirmation_desc">Chờ xác nhận</string>
+    <string name="delivery_desc">Đang vận chuyển</string>
 </resources>

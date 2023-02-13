@@ -1,5 +1,6 @@
 package com.example.appshopping.presentation.main.home.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,12 +53,13 @@ import com.example.appshopping.domain.model.main.ProductModel
 //}
 
 class ProductAdapter(
+    private val context: Context,
     private val products: List<ProductModel>,
     private val onItemClicked: (ProductModel) -> Unit,
 ) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(productModel: ProductModel) {
             val imageView = itemView.findViewById<ImageView>(R.id.ivProduct)
             val name = itemView.findViewById<TextView>(R.id.tvProductName)
@@ -67,7 +69,7 @@ class ProductAdapter(
                 .placeholder(R.drawable.loading_img)
                 .into(imageView)
             name.text = productModel.name
-            price.text = productModel.price
+            price.text = context.getString(R.string.price,productModel.price)
         }
     }
 

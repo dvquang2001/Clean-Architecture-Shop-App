@@ -5,7 +5,9 @@ import com.example.appshopping.base.BaseViewEvent
 import com.example.appshopping.base.BaseViewModel
 import com.example.appshopping.base.BaseViewState
 import com.example.appshopping.domain.model.main.ProductModel
+import com.example.appshopping.domain.model.main.UserModel
 import com.example.appshopping.domain.usecase.main.get_products.GetProductsUseCase
+import com.example.appshopping.domain.usecase.main.get_user.GetUserDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -13,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val getUserInfoUseCase: GetUserDataUseCase,
     private val getProductsUseCase: GetProductsUseCase,
 ) :
     BaseViewModel<HomeViewModel.ViewState, HomeViewModel.ViewEvent, HomeViewModel.ViewEffect>(
@@ -20,18 +23,20 @@ class HomeViewModel @Inject constructor(
     ) {
 
     private var getProductsJob: Job? = null
+    private var getUserInfoJob: Job? = null
     private fun getAllProducts() {
         getProductsJob?.cancel()
         getProductsJob = coroutineScope.launch {
             getProductsUseCase().collect {
                 setState(
                     currentState.copy(
-                        list = it.take(4)
+                        list = it.take(6)
                     )
                 )
             }
         }
     }
+
 
     override fun onEvent(event: ViewEvent) {
         when (event) {
@@ -40,7 +45,8 @@ class HomeViewModel @Inject constructor(
     }
 
     data class ViewState(
-        val list: List<ProductModel> = listOf()
+        val list: List<ProductModel> = listOf(),
+        val userModel: UserModel? = null
     ) : BaseViewState
 
     sealed interface ViewEvent : BaseViewEvent {

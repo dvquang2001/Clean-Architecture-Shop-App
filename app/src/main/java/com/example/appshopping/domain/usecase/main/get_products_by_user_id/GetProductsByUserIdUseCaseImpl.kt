@@ -9,6 +9,6 @@ class GetProductsByUserIdUseCaseImpl @Inject constructor(private val mainReposit
     : GetProductsByUserIdUseCase{
 
     override fun invoke(listProductId: List<String>): Flow<List<ProductModel>> {
-        return mainRepository.getProductsByUserId(listProductId)
+        return mainRepository.getCartProducts(listProductId)
     }
 }

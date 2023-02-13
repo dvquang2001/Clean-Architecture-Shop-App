@@ -13,10 +13,9 @@ import com.example.appshopping.data.data_source.getListImage
 import com.example.appshopping.databinding.FragmentHomeBinding
 import com.example.appshopping.domain.model.main.ProductModel
 import com.example.appshopping.other.Constant.KEY_PRODUCT_ID
-import com.example.appshopping.presentation.main.cart.CartActivity
-import com.example.appshopping.presentation.main.detail.DetailActivity
+import com.example.appshopping.presentation.main.detail_screen.DetailActivity
 import com.example.appshopping.presentation.main.home.adapter.ProductAdapter
-import com.example.appshopping.presentation.main.product.ProductActivity
+import com.example.appshopping.presentation.main.products_screen.ProductActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -41,7 +40,7 @@ class HomeFragment :
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     products = state.list
-                    productAdapter = ProductAdapter(products) { product ->
+                    productAdapter = ProductAdapter(requireContext(),products) { product ->
                         val intent = Intent(requireActivity(), DetailActivity::class.java)
                         intent.putExtra(KEY_PRODUCT_ID,product.id)
                         startActivity(intent)
@@ -56,7 +55,6 @@ class HomeFragment :
         super.onViewClicked(view)
         when(view.id) {
             binding.tvNavigateToProductActivity.id -> navigateToProductActivity()
-            binding.layoutHeader.iconEnd.id -> navigateToCartActivity()
         }
     }
 
@@ -64,13 +62,9 @@ class HomeFragment :
         startActivity(Intent(requireActivity(), ProductActivity::class.java))
     }
 
-    private fun navigateToCartActivity() {
-        startActivity(Intent(requireActivity(),CartActivity::class.java))
-    }
 
     override fun initViewListener() {
         binding.tvNavigateToProductActivity.setOnClickListener(this@HomeFragment)
-        binding.layoutHeader.iconEnd.setOnClickListener(this@HomeFragment)
     }
 
     override fun initData() {
