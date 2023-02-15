@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/regular_margin"
             android:text="@{description}"
-            android:textColor="@color/start_color_app_icon"
+            android:textColor="@color/primary"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivNext"

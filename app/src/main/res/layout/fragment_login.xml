@@ -25,7 +25,7 @@
                 <ProgressBar
                     android:visibility="gone"
                     android:id="@+id/progressBar"
-                    android:indeterminateTint="@color/color_app_icon"
+                    android:indeterminateTint="@color/primary"
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
@@ -49,7 +49,7 @@
                 android:layout_marginTop="@dimen/regular_margin"
                 android:text="@string/app_title"
                 android:textAllCaps="true"
-                android:textColor="@color/color_app_icon"
+                android:textColor="@color/primary_dark"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -16,7 +16,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/start_color_app_icon"
+        android:background="@color/primary"
         android:paddingVertical="@dimen/small_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -29,6 +29,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Named
 
+
 class MainRepositoryImpl @Inject constructor(
     private val sharePreferences: SharedPreferences,
     @Named("product")
@@ -38,6 +39,68 @@ class MainRepositoryImpl @Inject constructor(
     private val gson: Gson,
 ) : MainRepository {
 
+    private fun saveUserToStorage(user: UserDto) {
+        val jsonString = gson.toJson(user)
+        sharePreferences.edit().apply {
+            this.putString(USER_DATA, jsonString)
+        }.apply()
+    }
+
+    private fun getUserDataFromStorage(): UserDto? {
+        val userDataString = sharePreferences.getString(USER_DATA, null)
+        return gson.fromJson(userDataString, UserDto::class.java)
+    }
+
+    private fun getUserFromLogin(): LoginDto? {
+        val userDataString = sharePreferences.getString(USER_DATA_LOGIN, null)
+        return gson.fromJson(userDataString, LoginDto::class.java)
+    }
+
+    private fun getNewPersonMap(name: String, gender: String): Map<String, Any> {
+        val map = mutableMapOf<String, Any>()
+        if (name.isNotEmpty()) {
+            map["name"] = name
+        }
+        if (gender.isNotEmpty()) {
+            map["gender"] = gender
+        }
+        return map
+    }
+
+    private fun getCartProductPersonMap(cartProducts: List<String>): Map<String, Any> {
+        val map = mutableMapOf<String, Any>()
+        map["cartProducts"] = cartProducts
+        return map
+    }
+
+    private fun getConfirmationProductPersonMap(confirmationProducts: List<String>,newUserAccountBalance: String): Map<String, Any> {
+        val map = mutableMapOf<String, Any>()
+        map["confirmationProducts"] = confirmationProducts
+        map["accountBalance"] = newUserAccountBalance
+        return map
+    }
+
+    private fun getConfirmationProductByPayPersonMap(
+        cartProducts: List<String>,
+        confirmationProducts: List<String>,
+        newUserAccountBalance: String,
+    ): Map<String, Any> {
+        val map = mutableMapOf<String, Any>()
+        map["confirmationProducts"] = confirmationProducts
+        map["cartProducts"] = cartProducts
+        map["accountBalance"] = newUserAccountBalance
+        return map
+    }
+
+    override suspend fun saveUserDataToStorage() {
+        val userLogin = getUserFromLogin()
+        val querySnapshot =
+            userCollectionReference.whereEqualTo("id", userLogin?.id).get().await().firstOrNull()
+        val userFromServer = querySnapshot?.toObject(UserDto::class.java)
+        if (userFromServer != null) {
+            saveUserToStorage(userFromServer)
+        }
+    }
     override fun getProduct(id: String): Flow<ProductModel> {
         return flow {
             try {
@@ -51,6 +114,35 @@ class MainRepositoryImpl @Inject constructor(
             } catch (e: Exception) {
                 Log.d(MAIN_TAG, "getProduct: $e")
             }
+        }
+    }
+
+    override fun testGetProducts(): Flow<List<ProductModel>> {
+        return callbackFlow {
+            try {
+                val productList = mutableListOf<ProductModel>()
+               productCollectionReference.get().addOnCompleteListener {
+                   if(it.isSuccessful) {
+                       val list = it.result.documents
+                       for(document in list) {
+                           val productDto = document.toObject(ProductDto::class.java)
+                           if(productDto != null) {
+                               productList.add(productDto.toProductModel())
+                           }
+                       }
+                       trySend(productList)
+                   }
+                   else {
+                       Log.d(MAIN_TAG,"getProducts: ${it.exception}")
+                   }
+               }.addOnFailureListener {
+                   Log.d(MAIN_TAG, "getProducts: $it")
+                   trySend(listOf())
+               }
+            }  catch (e: Exception) {
+                Log.d(MAIN_TAG, "getProducts: $e")
+            }
+            awaitClose()
         }
     }
 
@@ -96,33 +188,6 @@ class MainRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun saveUserToStorage(user: UserDto) {
-        val jsonString = gson.toJson(user)
-        sharePreferences.edit().apply {
-            this.putString(USER_DATA, jsonString)
-        }.apply()
-    }
-
-    override suspend fun saveUserDataToStorage() {
-        val userLogin = getUserFromLogin()
-        val querySnapshot =
-            userCollectionReference.whereEqualTo("id", userLogin?.id).get().await().firstOrNull()
-        val userFromServer = querySnapshot?.toObject(UserDto::class.java)
-        if (userFromServer != null) {
-            saveUserToStorage(userFromServer)
-        }
-    }
-
-    private fun getUserDataFromStorage(): UserDto? {
-        val userDataString = sharePreferences.getString(USER_DATA, null)
-        return gson.fromJson(userDataString, UserDto::class.java)
-    }
-
-    private fun getUserFromLogin(): LoginDto? {
-        val userDataString = sharePreferences.getString(USER_DATA_LOGIN, null)
-        return gson.fromJson(userDataString, LoginDto::class.java)
-    }
-
     override fun getCurrentUserData(): Flow<ResultModel<UserModel>> {
         return flow {
             try {
@@ -144,70 +209,9 @@ class MainRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun getNewPersonMap(name: String, gender: String): Map<String, Any> {
-        val map = mutableMapOf<String, Any>()
-        if (name.isNotEmpty()) {
-            map["name"] = name
-        }
-        if (gender.isNotEmpty()) {
-            map["gender"] = gender
-        }
-        return map
-    }
-
-    private fun getCartProductPersonMap(cartProducts: List<String>): Map<String, Any> {
-        val map = mutableMapOf<String, Any>()
-        map["cartProducts"] = cartProducts
-        return map
-    }
-
-    private fun getConfirmationProductPersonMap(
-        cartProducts: List<String>,
-        confirmationProducts: List<String>,
-    ): Map<String, Any> {
-        val map = mutableMapOf<String, Any>()
-        map["confirmationProducts"] = confirmationProducts
-        map["cartProducts"] = cartProducts
-        return map
-    }
-
-    override fun deleteProductFromCart(cartProductId: String): Flow<ResultModel<UserModel>> {
-        return flow {
-            try {
-                val loginData = getUserFromLogin()
-                val userFromStorage = getUserDataFromStorage()
-                val cartProductsFromStorage = userFromStorage?.cartProducts
-                val newList = cartProductsFromStorage?.filter { string -> string != cartProductId }
-                    ?: listOf()
-                val querySnapshot =
-                    userCollectionReference.whereEqualTo("id", loginData?.id).get().await()
-                        .firstOrNull()
-                if (querySnapshot != null) {
-                    userCollectionReference.document(querySnapshot.id).set(
-                        getCartProductPersonMap(newList), SetOptions.merge()
-                    )
-                }
-                val userDto = UserDto(
-                    id = userFromStorage?.id,
-                    name = userFromStorage?.name,
-                    gender = userFromStorage?.gender,
-                    email = userFromStorage?.email,
-                    accountBalance = userFromStorage?.accountBalance,
-                    cartProducts = newList
-                )
-                saveUserToStorage(userDto)
-                emit(ResultModel.Success(userDto.toUserModel()))
-            } catch (e: Exception) {
-                Log.d(MAIN_TAG, "deleteProduct: $e")
-                emit(ResultModel.Error(e))
-            }
-        }
-    }
-
     override fun addProductToCart(cartProductId: String): Flow<ResultModel<UserModel>> {
         return flow {
             try {
-                val loginData = getUserFromLogin()
                 val userFromStorage = getUserDataFromStorage()
                 val cartProductsFromStorage = userFromStorage?.cartProducts
                 val newList: MutableList<String> = mutableListOf()
@@ -221,7 +225,7 @@ class MainRepositoryImpl @Inject constructor(
                     return@flow
                 }
                 val querySnapshot =
-                    userCollectionReference.whereEqualTo("id", loginData?.id).get().await()
+                    userCollectionReference.whereEqualTo("id", userFromStorage.id).get().await()
                         .firstOrNull()
                 if (querySnapshot != null) {
                     userCollectionReference.document(querySnapshot.id).set(
@@ -240,55 +244,6 @@ class MainRepositoryImpl @Inject constructor(
                 emit(ResultModel.Success(userDto.toUserModel()))
             } catch (e: Exception) {
                 Log.d(MAIN_TAG, "addProduct: $e")
-                emit(ResultModel.Error(e))
-            }
-        }
-    }
-
-    override fun pay(cartProductIds: List<String>, newUserAccountBalance: String): Flow<ResultModel<UserModel>> {
-        return flow {
-            try {
-                val loginData = getUserFromLogin()
-                val userFromStorage = getUserDataFromStorage()
-                val cartProductsFromStorage = userFromStorage?.cartProducts ?: listOf()
-                val confirmationProductsFromStorage =
-                    userFromStorage?.confirmationProducts ?: listOf()
-                val newCartList = mutableListOf<String>()
-                val newConfirmationList = mutableListOf<String>()
-                for (payId in cartProductIds) {
-                    if (cartProductsFromStorage.contains(payId)) {
-                        newConfirmationList.add(payId)
-                        continue
-                    }
-                    newCartList.add(payId)
-                }
-                for (purchasedId in confirmationProductsFromStorage) {
-                    if (newConfirmationList.contains(purchasedId)) {
-                        continue
-                    }
-                    newConfirmationList.add(purchasedId)
-                }
-                val querySnapshot =
-                    userCollectionReference.whereEqualTo("id", loginData?.id).get().await()
-                        .firstOrNull()
-                if (querySnapshot != null) {
-                    userCollectionReference.document(querySnapshot.id).set(
-                        getConfirmationProductPersonMap(newCartList,newConfirmationList), SetOptions.merge()
-                    )
-                }
-                val userDto = UserDto(
-                    id = userFromStorage?.id,
-                    name = userFromStorage?.name,
-                    gender = userFromStorage?.gender,
-                    email = userFromStorage?.email,
-                    accountBalance = newUserAccountBalance,
-                    cartProducts = newCartList,
-                    confirmationProducts = newConfirmationList
-                )
-                saveUserToStorage(userDto)
-                emit(ResultModel.Success(userDto.toUserModel()))
-            } catch (e: Exception) {
-                Log.d(MAIN_TAG, "Pay: $e")
                 emit(ResultModel.Error(e))
             }
         }
@@ -374,5 +329,130 @@ class MainRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun deleteProductFromCart(cartProductId: String): Flow<ResultModel<UserModel>> {
+        return flow {
+            try {
+                val userFromStorage = getUserDataFromStorage()
+                val cartProductsFromStorage = userFromStorage?.cartProducts
+                val newList = cartProductsFromStorage?.filter { string -> string != cartProductId }
+                    ?: listOf()
+                val querySnapshot =
+                    userCollectionReference.whereEqualTo("id", userFromStorage?.id).get().await()
+                        .firstOrNull()
+                if (querySnapshot != null) {
+                    userCollectionReference.document(querySnapshot.id).set(
+                        getCartProductPersonMap(newList), SetOptions.merge()
+                    )
+                }
+                Log.d(MAIN_TAG,"delete: $newList")
+                val userDto = UserDto(
+                    id = userFromStorage?.id,
+                    name = userFromStorage?.name,
+                    gender = userFromStorage?.gender,
+                    email = userFromStorage?.email,
+                    accountBalance = userFromStorage?.accountBalance,
+                    cartProducts = newList
+                )
+                saveUserToStorage(userDto)
+                emit(ResultModel.Success(userDto.toUserModel()))
+            } catch (e: Exception) {
+                Log.d(MAIN_TAG, "deleteProduct: $e")
+                emit(ResultModel.Error(e))
+            }
+        }
+    }
 
+    override fun pay(cartProductIds: List<String>, newUserAccountBalance: String): Flow<ResultModel<UserModel>> {
+        return flow {
+            try {
+                val userFromStorage = getUserDataFromStorage()
+                val cartProductsFromStorage = userFromStorage?.cartProducts ?: listOf()
+                val confirmationProductsFromStorage =
+                    userFromStorage?.confirmationProducts ?: listOf()
+                val newCartList = mutableListOf<String>()
+                val newConfirmationList = mutableListOf<String>()
+                for (payId in cartProductsFromStorage) {
+                    if (cartProductIds.contains(payId)) {
+                        newConfirmationList.add(payId)
+                        continue
+                    }
+                    newCartList.add(payId)
+                }
+                for (purchasedId in confirmationProductsFromStorage) {
+                    if (newConfirmationList.contains(purchasedId)) {
+                        continue
+                    }
+                    newConfirmationList.add(purchasedId)
+                }
+                val querySnapshot =
+                    userCollectionReference.whereEqualTo("id", userFromStorage?.id).get().await()
+                        .firstOrNull()
+                if (querySnapshot != null) {
+                    userCollectionReference.document(querySnapshot.id).set(
+                        getConfirmationProductByPayPersonMap(newCartList,newConfirmationList,newUserAccountBalance), SetOptions.merge()
+                    )
+                }
+                val userDto = UserDto(
+                    id = userFromStorage?.id,
+                    name = userFromStorage?.name,
+                    gender = userFromStorage?.gender,
+                    email = userFromStorage?.email,
+                    accountBalance = newUserAccountBalance,
+                    cartProducts = newCartList,
+                    confirmationProducts = newConfirmationList
+                )
+                saveUserToStorage(userDto)
+                emit(ResultModel.Success(userDto.toUserModel()))
+            } catch (e: Exception) {
+                Log.d(MAIN_TAG, "Pay: $e")
+                emit(ResultModel.Error(e))
+            }
+        }
+    }
+
+    override fun buy(
+        cartProductId: String,
+        productPrice: String,
+    ): Flow<ResultModel<UserModel>> {
+        return flow {
+            try {
+                val userFromStorage = getUserDataFromStorage()
+                if(productPrice.toLong() > userFromStorage?.accountBalance?.toLong()!!) {
+                    emit(ResultModel.Error(Exception("Your account is not enough to perform this service")))
+                    return@flow
+                }
+                val newUserAccountBalance = userFromStorage.accountBalance.toLong() - productPrice.toLong()
+                val confirmationProductsFromStorage = userFromStorage.confirmationProducts
+                val newList : MutableList<String> = mutableListOf()
+                for(id in confirmationProductsFromStorage) {
+                    newList.add(id)
+                }
+                if(!newList.contains(cartProductId)) {
+                    newList.add(cartProductId)
+                } else {
+                    emit(ResultModel.Error(Exception("This product already in cart")))
+                    return@flow
+                }
+                val querySnapshot = userCollectionReference.whereEqualTo("id",userFromStorage.id).get().await().firstOrNull()
+                if(querySnapshot != null) {
+                    userCollectionReference.document(querySnapshot.id).set(
+                        getConfirmationProductPersonMap(newList,newUserAccountBalance.toString()), SetOptions.merge()
+                    )
+                }
+                val userDto = UserDto(
+                    id = userFromStorage.id,
+                    name = userFromStorage.name,
+                    gender = userFromStorage.gender,
+                    email = userFromStorage.email,
+                    accountBalance = newUserAccountBalance.toString(),
+                    confirmationProducts = newList
+                )
+                saveUserToStorage(userDto)
+                emit(ResultModel.Success(userDto.toUserModel()))
+            } catch (e: Exception) {
+                Log.d(MAIN_TAG, "BUy: $e")
+                emit(ResultModel.Error(e))
+            }
+        }
+    }
 }

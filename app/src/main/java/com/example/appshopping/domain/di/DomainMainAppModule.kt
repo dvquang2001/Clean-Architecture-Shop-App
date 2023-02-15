@@ -2,6 +2,8 @@ package com.example.appshopping.domain.di
 
 import com.example.appshopping.domain.usecase.main.add_product.AddProductToCartUseCase
 import com.example.appshopping.domain.usecase.main.add_product.AddProductToCartUseCaseImpl
+import com.example.appshopping.domain.usecase.main.buy.BuyUseCase
+import com.example.appshopping.domain.usecase.main.buy.BuyUseCaseImpl
 import com.example.appshopping.domain.usecase.main.delete_product_from_cart.DeleteProductUseCase
 import com.example.appshopping.domain.usecase.main.delete_product_from_cart.DeleteProductUseCaseImpl
 import com.example.appshopping.domain.usecase.main.change_password.ChangePasswordUseCase
@@ -18,8 +20,8 @@ import com.example.appshopping.domain.usecase.main.get_user.GetUserDataUseCase
 import com.example.appshopping.domain.usecase.main.get_user.GetUserDataUseCaseImpl
 import com.example.appshopping.domain.usecase.main.save_user.SaveUserUseCase
 import com.example.appshopping.domain.usecase.main.save_user.SaveUserUseCaseImpl
-import com.example.appshopping.domain.usecase.pay.PayUseCase
-import com.example.appshopping.domain.usecase.pay.PayUseCaseImpl
+import com.example.appshopping.domain.usecase.main.pay.PayUseCase
+import com.example.appshopping.domain.usecase.main.pay.PayUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -69,5 +71,9 @@ abstract class DomainMainAppModule {
     @Binds
     @ViewModelScoped
     abstract fun bindPayUseCase(payUseCaseImpl: PayUseCaseImpl): PayUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindBuyUseCase(buyUseCaseImpl: BuyUseCaseImpl): BuyUseCase
 
 }

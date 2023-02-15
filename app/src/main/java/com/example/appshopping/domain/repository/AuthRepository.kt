@@ -3,6 +3,7 @@ package com.example.appshopping.domain.repository
 import com.example.appshopping.domain.model.auth.LoginModel
 import com.example.appshopping.domain.model.auth.RegisterModel
 import com.example.appshopping.domain.model.ResultModel
+import com.example.appshopping.domain.model.main.UserModel
 import com.example.appshopping.domain.usecase.auth.login.LoginParam
 import com.example.appshopping.domain.usecase.auth.register.RegisterParam
 import com.example.appshopping.domain.usecase.auth.reset_password.ResetPasswordParam
@@ -21,4 +22,6 @@ interface AuthRepository {
     fun logout(): Flow<Boolean>
 
     suspend fun resetPassword(param: ResetPasswordParam)
+
+    fun initializeUserData(): Flow<ResultModel<UserModel>>
 }
