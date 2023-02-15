@@ -53,7 +53,7 @@
             android:id="@+id/btnPay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/start_color_app_icon"
+            android:background="@color/primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_default="percent"

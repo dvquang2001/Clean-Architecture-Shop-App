@@ -1,6 +1,5 @@
 package com.example.appshopping.presentation.main.home.user_screen
 
-import android.util.Log
 import com.example.appshopping.base.BaseViewEffect
 import com.example.appshopping.base.BaseViewEvent
 import com.example.appshopping.base.BaseViewModel
@@ -29,14 +28,14 @@ class UserInfoViewModel @Inject constructor(
         ViewState()
     ) {
 
-    private var getUserInfoJob: Job? = null
+    private var getUserJob: Job? = null
     private var changeUserJob: Job? = null
     private var changePasswordJob: Job? = null
     private var logoutJob: Job? = null
 
     private fun getUser() {
-        getUserInfoJob?.cancel()
-        getUserInfoJob = coroutineScope.launch {
+        getUserJob?.cancel()
+        getUserJob = coroutineScope.launch {
             getUserDataUseCase().collect { result ->
                 when (result) {
                     is ResultModel.Success -> {

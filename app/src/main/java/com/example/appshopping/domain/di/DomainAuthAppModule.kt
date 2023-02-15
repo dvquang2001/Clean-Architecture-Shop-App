@@ -6,6 +6,8 @@ import com.example.appshopping.domain.usecase.auth.check_login.CheckLoginParamUs
 import com.example.appshopping.domain.usecase.auth.check_login.CheckLoginUseCase
 import com.example.appshopping.domain.usecase.auth.get_user_data.GetUserDataUseCase
 import com.example.appshopping.domain.usecase.auth.get_user_data.GetUserDataUseCaseImpl
+import com.example.appshopping.domain.usecase.auth.init_user.InitUserUseCase
+import com.example.appshopping.domain.usecase.auth.init_user.InitUserUseCaseImpl
 import com.example.appshopping.domain.usecase.auth.login.LoginUseCase
 import com.example.appshopping.domain.usecase.auth.login.LoginUseCaseImpl
 import com.example.appshopping.domain.usecase.auth.register.RegisterUseCase
@@ -46,5 +48,8 @@ abstract class DomainAuthAppModule {
     @ViewModelScoped
     abstract fun bindLogoutUseCase(impl: LogoutUseCaseImpl): LogoutUseCase
 
+    @Binds
+    @ViewModelScoped
+    abstract fun bindInitUserUseCase(impl: InitUserUseCaseImpl): InitUserUseCase
 
 }

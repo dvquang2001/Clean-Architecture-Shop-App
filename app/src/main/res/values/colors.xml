@@ -8,48 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="start_color_app_icon">#7662FA</color>
-    <color name="color_app_icon">#FC62FF</color>
+    <color name="primary">#9C27B0</color>
+    <color name="primary_dark">#7B1FA2</color>
+    <color name="primary_light">#E1BEE7</color>
+    <color name="accent">#FF9800</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 
-    // Primary
-    <color name="primary_main">#7662FA</color>
-    <color name="primary_surface">#E4E0FE</color>
-    <color name="primary_border">#BAB0FC</color>
-    <color name="primary_hover">#6252D0</color>
-    <color name="primary_pressed">#3B317D</color>
-    <color name="primary_focus">#7662FA</color>
-
-    // Danger
     <color name="danger_main">#F83B00</color>
-    <color name="danger_surface">#FED8CC</color>
-    <color name="danger_border">#FDBEAA</color>
-    <color name="danger_hover">#CF3100</color>
-    <color name="danger_pressed">#7C1D00</color>
-    <color name="danger_focus">#F83B00</color>
 
-    // Warning
-    <color name="warning_main">#F8D000</color>
-    <color name="warning_surface">#FEF6CC</color>
-    <color name="warning_border">#FDEFAA</color>
-    <color name="warning_hover">#CFAD00</color>
-    <color name="warning_pressed">#7C6800</color>
-    <color name="warning_focus">#F8D000</color>
-
-    // Success
-    <color name="success_main">#00F845</color>
-    <color name="success_surface">#CCFEDA</color>
-    <color name="success_border">#AAFDC1</color>
-    <color name="success_hover">#00CF39</color>
-    <color name="success_pressed">#007C22</color>
-    <color name="success_focus">#00F845</color>
-
-    // Info
-    <color name="info_main">#135ED0</color>
-    <color name="info_surface">#D0DFF6</color>
-    <color name="info_border">#B0C9EF</color>
-    <color name="info_hover">#104EAD</color>
-    <color name="info_pressed">#092F68</color>
-    <color name="info_focus">#135ED0</color>
 
     //Neutral
     <color name="neutral">#FFFFFF</color>

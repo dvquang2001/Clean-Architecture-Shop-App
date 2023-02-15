@@ -1,4 +1,4 @@
-package com.example.appshopping.domain.usecase.pay
+package com.example.appshopping.domain.usecase.main.pay
 
 import com.example.appshopping.domain.model.ResultModel
 import com.example.appshopping.domain.model.main.UserModel

@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.lifecycle.Lifecycle
@@ -316,6 +315,5 @@ class UserInfoFragment :
     }
 
     override fun initData() {
-        viewModel.onEvent(UserInfoViewModel.ViewEvent.GetUserData)
     }
 }

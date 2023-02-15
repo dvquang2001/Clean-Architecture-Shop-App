@@ -37,8 +37,7 @@
             android:layout_marginBottom="@dimen/small_margin"
             android:id="@+id/tvProductPrice"
             tools:text="2000$"
-            android:textColor="@color/danger_main"
-            android:textSize="18sp"
+            style="@style/customTextView"
             android:layout_marginStart="@dimen/regular_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

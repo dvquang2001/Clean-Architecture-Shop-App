@@ -43,7 +43,7 @@
                 android:textSize="16sp"
                 android:textStyle="italic"
                 android:background="@color/white"
-                android:textColor="@color/start_color_app_icon"
+                android:textColor="@color/primary"
                 android:paddingTop="@dimen/small_margin"
                 android:gravity="center"
                 android:id="@+id/tvContact"
@@ -63,16 +63,16 @@
                 android:paddingHorizontal="@dimen/small_margin">
 
                 <TextView
+                    android:id="@+id/tvNewProductText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:text="@string/new_product"
-                    android:textColor="@color/danger_main"
-                    android:textSize="20sp" />
+                    style="@style/customTextView" />
 
                 <TextView
                     android:id="@+id/tvNavigateToProductActivity"
-                    android:textColor="@color/start_color_app_icon"
+                    android:textColor="@color/primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -100,7 +100,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@id/rcvProduct"
                 android:layout_marginHorizontal="@dimen/regular_margin"
-                android:background="@color/start_color_app_icon" />
+                android:background="@color/primary" />
 
         </RelativeLayout>
 

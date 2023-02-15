@@ -33,18 +33,38 @@
             app:description="@{@string/setup}"
             app:name="@{@string/language}" />
 
-        <include
-            android:id="@+id/featureSelectMode"
-            layout="@layout/layout_feature"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="@dimen/regular_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/featureLanguage"
-            app:description="@{@string/setup}"
-            app:name="@{@string/screen_mode}" />
+       <LinearLayout
+           android:layout_marginHorizontal="@dimen/regular_margin"
+           android:layout_marginTop="@dimen/small_margin"
+           android:background="@drawable/bg_text_field"
+           app:layout_constraintTop_toBottomOf="@id/featureLanguage"
+           app:layout_constraintStart_toStartOf="parent"
+           android:orientation="horizontal"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:id="@+id/featureSelectMode"
+           android:layout_width="match_parent"
+           android:layout_height="56dp" >
+
+           <TextView
+               android:layout_weight="4"
+               android:textColor="@color/black"
+               android:textSize="16sp"
+               android:layout_marginStart="@dimen/regular_margin"
+               android:layout_gravity="center_vertical"
+               android:text="@string/dark_mode"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+           <androidx.appcompat.widget.SwitchCompat
+               android:id="@+id/switchDarkMode"
+               android:layout_marginEnd="@dimen/regular_margin"
+               android:layout_weight="1"
+               android:layout_gravity="end|center_vertical"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+
+       </LinearLayout>
 
         <include
             android:id="@+id/featureAbout"

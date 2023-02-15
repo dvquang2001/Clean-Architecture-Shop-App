@@ -10,6 +10,6 @@ class GetProductsUseCaseImpl @Inject constructor(
 ) : GetProductsUseCase {
 
     override fun invoke(): Flow<List<ProductModel>> {
-        return mainRepository.getProducts()
+        return mainRepository.testGetProducts()
     }
 }

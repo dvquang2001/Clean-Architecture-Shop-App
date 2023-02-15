@@ -1,6 +1,5 @@
 package com.example.appshopping.presentation.main.detail_screen
 
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
@@ -10,10 +9,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.appshopping.R
 import com.example.appshopping.base.BaseFragment
 import com.example.appshopping.databinding.FragmentDetailBinding
+import com.example.appshopping.domain.model.main.ProductModel
 import com.example.appshopping.other.Constant.KEY_PRODUCT_ID
 import com.example.appshopping.presentation.main.detail_screen.adapter.ProductImageViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -22,6 +21,7 @@ class DetailFragment :
 
     private lateinit var imageViewPagerAdapter: ProductImageViewPagerAdapter
     private var id: String? = null
+    private var product: ProductModel? = null
 
     override fun initView() {
         id = activity?.intent?.getStringExtra(KEY_PRODUCT_ID) ?: ""
@@ -32,11 +32,12 @@ class DetailFragment :
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
-                    binding.tvProductPrice.text = state.price
-                    binding.tvProductDesc.text = state.description
-                    binding.tvProductName.text = state.name
-                    if(state.imageUrls != null) {
-                        imageViewPagerAdapter = ProductImageViewPagerAdapter(state.imageUrls)
+                    product = state.productModel
+                    binding.tvProductPrice.text = state.productModel?.price
+                    binding.tvProductDesc.text = state.productModel?.description
+                    binding.tvProductName.text = state.productModel?.name
+                    if(state.productModel?.images != null) {
+                        imageViewPagerAdapter = ProductImageViewPagerAdapter(state.productModel.images)
                         binding.viewPagerProduct.adapter = imageViewPagerAdapter
                         binding.viewPagerProduct.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                         binding.indicator.setViewPager(binding.viewPagerProduct)
@@ -51,6 +52,12 @@ class DetailFragment :
                         Toast.makeText(requireContext(),"Add product to cart success",Toast.LENGTH_LONG).show()
                     }
                     is DetailViewModel.ViewEffect.AddProductFail -> {
+                        Toast.makeText(requireContext(),effect.error,Toast.LENGTH_LONG).show()
+                    }
+                    is DetailViewModel.ViewEffect.BuySuccess -> {
+                        Toast.makeText(requireContext(),"Buy success, your item is being confirmed",Toast.LENGTH_LONG).show()
+                    }
+                    is DetailViewModel.ViewEffect.BuyFail -> {
                         Toast.makeText(requireContext(),effect.error,Toast.LENGTH_LONG).show()
                     }
                 }
@@ -76,7 +83,8 @@ class DetailFragment :
     }
 
     private fun buyProduct() {
-        //TODO
+        if(product != null)
+            viewModel.onEvent(DetailViewModel.ViewEvent.BuyEvent(product?.id!!,product?.price!!))
     }
 
     override fun initViewListener() {

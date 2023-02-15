@@ -30,7 +30,9 @@ import javax.inject.Named
 
 class AuthRepositoryImpl @Inject constructor(
     private val sharePreferences: SharedPreferences,
-    private val gson: Gson
+    private val gson: Gson,
+    @Named("user")
+    private val userCollectionReference: CollectionReference,
 ) : AuthRepository {
 
     private fun saveUserDataToStorage(loginDto: LoginDto) {
@@ -39,6 +41,7 @@ class AuthRepositoryImpl @Inject constructor(
             this.putString(USER_DATA_LOGIN, jsonString)
         }.apply()
     }
+
     private var isLogin = false
 
     private fun getUserDataFromStorage(): LoginDto? {
@@ -46,21 +49,21 @@ class AuthRepositoryImpl @Inject constructor(
         return gson.fromJson(userDataString, LoginDto::class.java)
     }
 
-    private fun saveLoginState(){
+    private fun saveLoginState() {
         isLogin = true
         sharePreferences.edit().apply {
-            this.putBoolean(LOGGED_IN,isLogin)
+            this.putBoolean(LOGGED_IN, isLogin)
         }.apply()
     }
 
-    override fun isLogin() : Boolean{
-        return sharePreferences.getBoolean(LOGGED_IN,false)
+    override fun isLogin(): Boolean {
+        return sharePreferences.getBoolean(LOGGED_IN, false)
     }
 
     override fun getCurrentUser(): Flow<LoginModel?> {
         return flow {
             val userData = getUserDataFromStorage()
-            if(userData != null) {
+            if (userData != null) {
                 val loginModel = userData.toLoginModel()
                 emit(loginModel)
             } else {
@@ -118,7 +121,7 @@ class AuthRepositoryImpl @Inject constructor(
                                 email = firebaseUser.email ?: ""
                             )
                             val model = registerDto.toRegisterModel()
-                            val loginDto = LoginDto(registerDto.id,registerDto.email)
+                            val loginDto = LoginDto(registerDto.id, registerDto.email)
                             saveUserDataToStorage(loginDto)
                             saveLoginState()
                             trySend(ResultModel.Success(model))
@@ -137,13 +140,50 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
+    private fun saveUserToStorage(user: UserDto) {
+        val jsonString = gson.toJson(user)
+        sharePreferences.edit().apply {
+            this.putString(USER_DATA, jsonString)
+        }.apply()
+    }
+
+    override fun initializeUserData(): Flow<ResultModel<UserModel>> {
+        Log.d(MAIN_TAG,"init authRepo")
+        return callbackFlow {
+            trySend(ResultModel.Loading())
+            try {
+                val userDto = UserDto(
+                    id = Firebase.auth.currentUser?.uid,
+                    name = "User",
+                    email = Firebase.auth.currentUser?.email,
+                    gender = "Male",
+                    accountBalance = "0",
+                    cartProducts = listOf(),
+                    confirmationProducts = listOf(),
+                    deliveryProducts = listOf()
+                )
+                userCollectionReference.add(userDto).addOnCompleteListener {
+                    Log.d(MAIN_TAG, userDto.toString())
+                    saveUserToStorage(userDto)
+                    trySend(ResultModel.Success(userDto.toUserModel()))
+                }.addOnFailureListener {
+                    Log.d(MAIN_TAG, it.message ?: "Unknown")
+                }
+            } catch (e: Exception) {
+                trySend(ResultModel.Error(e))
+                Log.d(MAIN_TAG, e.toString())
+            }
+            awaitClose()
+        }
+    }
+
     override fun logout(): Flow<Boolean> {
         return flow {
             isLogin = false
             sharePreferences.edit().apply {
-                this.putBoolean(LOGGED_IN,false)
-                this.putString(USER_DATA_LOGIN,"")
-                this.putString(USER_DATA,"")
+                this.putBoolean(LOGGED_IN, false)
+                this.putString(USER_DATA_LOGIN, "")
+                this.putString(USER_DATA, "")
             }.apply()
             emit(isLogin)
         }

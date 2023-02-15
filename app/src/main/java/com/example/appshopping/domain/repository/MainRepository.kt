@@ -16,9 +16,10 @@ interface MainRepository {
     fun getCurrentUserData(): Flow<ResultModel<UserModel>>
     fun addProductToCart(cartProductId: String): Flow<ResultModel<UserModel>>
     fun changeUserData(userParam: UserParam): Flow<ResultModel<UserModel>>
-
     fun changePassword(loginParam: LoginParam, newPassword: String): Flow<ResultModel<LoginModel>>
     fun deleteProductFromCart(cartProductId: String): Flow<ResultModel<UserModel>>
     fun pay(cartProductIds: List<String>,newUserAccountBalance: String): Flow<ResultModel<UserModel>>
+    fun buy(cartProductId: String,productPrice: String): Flow<ResultModel<UserModel>>
+    fun testGetProducts(): Flow<List<ProductModel>>
 
 }

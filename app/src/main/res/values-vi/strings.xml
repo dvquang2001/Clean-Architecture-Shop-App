@@ -80,4 +80,9 @@
 
     <string name="confirmation_desc">Chờ xác nhận</string>
     <string name="delivery_desc">Đang vận chuyển</string>
+
+    <string name="confirm_delete">Xác nhận gỡ bỏ</string>
+    <string name="confirm_delete_desc">Bạn có muốn hủy sản phẩm này khỏi giỏ hàng</string>
+    <string name="remove">Gỡ bỏ</string>
+    <string name="dark_mode">Chế độ tối</string>
 </resources>

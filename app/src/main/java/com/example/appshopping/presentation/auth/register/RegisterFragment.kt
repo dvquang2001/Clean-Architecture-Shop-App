@@ -40,11 +40,7 @@ class RegisterFragment :
                     when (uiEffect) {
                         is RegisterViewModel.ViewEffect.RegisterSuccess -> {
                             binding.progressBar.visibility = View.GONE
-                            val intent = Intent(
-                                requireActivity(), MainActivity::class.java
-                            )
-                            startActivity(intent)
-                            activity?.finish()
+                            findNavController().navigate(R.id.action_registerFragment_to_initDataFragment)
                         }
                         is RegisterViewModel.ViewEffect.Error -> {
                             binding.progressBar.visibility = View.GONE
